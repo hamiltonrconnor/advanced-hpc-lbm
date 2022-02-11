@@ -99,6 +99,8 @@ int rebound(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obsta
 int collision(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obstacles);
 int write_values(const t_param params, t_speed* cells, int* obstacles, float* av_vels);
 
+float fushion(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obstacles);
+
 /* finalise, including freeing up allocated memory */
 int finalise(const t_param* params, t_speed** cells_ptr, t_speed** tmp_cells_ptr,
              int** obstacles_ptr, float** av_vels_ptr);
