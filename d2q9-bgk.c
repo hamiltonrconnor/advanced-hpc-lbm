@@ -160,8 +160,8 @@ int main(int argc, char* argv[])
   for (int tt = 0; tt < params.maxIters; tt++)
   {
     timestep(params, cells, tmp_cells, obstacles);
-    av_vels[tt] =fushion(params, cells, tmp_cells, obstacles);
-    //av_vels[tt] = av_velocity(params, cells, obstacles);
+    //av_vels[tt] =fushion(params, cells, tmp_cells, obstacles);
+    av_vels[tt] = av_velocity(params, cells, obstacles);
 #ifdef DEBUG
     printf("==timestep: %d==\n", tt);
     printf("av velocity: %.12E\n", av_vels[tt]);
@@ -197,6 +197,7 @@ int main(int argc, char* argv[])
 int timestep(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obstacles)
 {
   accelerate_flow(params, cells, obstacles);
+  fushion(params, cells, tmp_cells, obstacles);
   //propagate(params, cells, tmp_cells);
   //rebound(params, cells, tmp_cells, obstacles);
   //collision(params, cells, tmp_cells, obstacles);
@@ -485,12 +486,8 @@ float fushion(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obs
       tmp_cells[ii + jj*params.nx].speeds[6] = cells[x_e + y_s*params.nx].speeds[6]; /* north-west */
       tmp_cells[ii + jj*params.nx].speeds[7] = cells[x_e + y_n*params.nx].speeds[7]; /* south-west */
       tmp_cells[ii + jj*params.nx].speeds[8] = cells[x_w + y_n*params.nx].speeds[8]; /* south-east */
-    }
-  }
-  for (int jj = 0; jj < params.ny; jj++)
-    {
-      for (int ii = 0; ii < params.nx; ii++)
-      {
+    
+
       //REBOUND
       /* if the cell contains an obstacle */
       if (obstacles[jj*params.nx + ii])
@@ -589,43 +586,16 @@ float fushion(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obs
           cells[ii + jj*params.nx].speeds[kk] = tmp_cells[ii + jj*params.nx].speeds[kk]
                                                   + params.omega
                                                   * (d_equ[kk] - tmp_cells[ii + jj*params.nx].speeds[kk]);
+
         }
 
 
 
-        /* local density total */
-        local_density = 0.f;
-
-        for (int kk = 0; kk < NSPEEDS; kk++)
-        {
-          local_density += cells[ii + jj*params.nx].speeds[kk];
-        }
-
-        /* x-component of velocity */
-        u_x = (cells[ii + jj*params.nx].speeds[1]
-                      + cells[ii + jj*params.nx].speeds[5]
-                      + cells[ii + jj*params.nx].speeds[8]
-                      - (cells[ii + jj*params.nx].speeds[3]
-                         + cells[ii + jj*params.nx].speeds[6]
-                         + cells[ii + jj*params.nx].speeds[7]))
-                     / local_density;
-        /* compute y velocity component */
-        u_y = (cells[ii + jj*params.nx].speeds[2]
-                      + cells[ii + jj*params.nx].speeds[5]
-                      + cells[ii + jj*params.nx].speeds[6]
-                      - (cells[ii + jj*params.nx].speeds[4]
-                         + cells[ii + jj*params.nx].speeds[7]
-                         + cells[ii + jj*params.nx].speeds[8]))
-                     / local_density;
-        /* accumulate the norm of x- and y- velocity components */
-        tot_u += sqrtf((u_x * u_x) + (u_y * u_y));
-        /* increase counter of inspected cells */
-        ++tot_cells;
       }
     }
   }
 
-  return tot_u / (float)tot_cells;
+return EXIT_SUCCESS;
 
 
 
