@@ -456,11 +456,7 @@ float fushion(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obs
   const float w1 = 1.f / 9.f;  /* weighting factor */
   const float w2 = 1.f / 36.f; /* weighting factor */
 
-  //Variables from av_velocity
-  int    tot_cells = 0;  /* no. of cells used in calculation */
-  float tot_u;          /* accumulated magnitudes of velocity for each cell */
-  /* initialise */
-  tot_u = 0.f;
+
 
   /* loop over _all_ cells */
   for (int jj = 0; jj < params.ny; jj++)
@@ -486,7 +482,13 @@ float fushion(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obs
       tmp_cells[ii + jj*params.nx].speeds[6] = cells[x_e + y_s*params.nx].speeds[6]; /* north-west */
       tmp_cells[ii + jj*params.nx].speeds[7] = cells[x_e + y_n*params.nx].speeds[7]; /* south-west */
       tmp_cells[ii + jj*params.nx].speeds[8] = cells[x_w + y_n*params.nx].speeds[8]; /* south-east */
-    
+    }
+  }
+
+    for (int jj = 0; jj < params.ny; jj++)
+    {
+        for (int ii = 0; ii < params.nx; ii++)
+        {
 
       //REBOUND
       /* if the cell contains an obstacle */
