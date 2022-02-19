@@ -593,10 +593,10 @@ float fushion(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obs
       }
     }
   }
-  t_speed* temp = cells;
+  //t_speed* temp = cells;
   *cells = *output;
-  free(temp);
-  temp = NULL;
+  //free(temp);
+  //temp = NULL;
 
 
 
