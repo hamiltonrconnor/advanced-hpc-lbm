@@ -158,7 +158,7 @@ int main(int argc, char* argv[])
   comp_tic=init_toc;
 
   t_speed* output     = NULL;
-  output = (t_speed*)malloc(sizeof(t_speed) * (params.ny * params.nx));
+
 
   for (int tt = 0; tt < params.maxIters; tt++)
   {
@@ -461,7 +461,7 @@ float fushion(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obs
   const float w2 = 1.f / 36.f; /* weighting factor */
 
 
-
+ output = (t_speed*)malloc(sizeof(t_speed) * (params.ny * params.nx));
 
   /* loop over _all_ cells */
   for (int jj = 0; jj < params.ny; jj++)
@@ -598,7 +598,7 @@ float fushion(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obs
 
   t_speed* temp = cells;
   *cells = *output;
-  *output = *temp;
+  //*output = *temp;
 
   //temp = NULL;
 
