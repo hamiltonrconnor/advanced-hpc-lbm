@@ -598,7 +598,7 @@ float fushion(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obs
       }
     }
   }
-  *cell = *output;
+  *cells = *output;
 
 
 return EXIT_SUCCESS;
