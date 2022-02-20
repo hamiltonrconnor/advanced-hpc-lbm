@@ -450,6 +450,11 @@ float av_velocity(const t_param params, t_speed* cells, int* obstacles)
 
   return tot_u / (float)tot_cells;
 }
+void swap(t_speed** a,t_speed** b){
+    t_speed *temp = *a;
+    *a = *b;
+    *b = temp;
+}
 
 float fushion(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obstacles){
   //CONSTS FROM COLLISION
@@ -602,8 +607,13 @@ float fushion(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obs
     }
   }
 
+  // printf("%p\n", (void *) cells);
+  // printf("%p\n", (void *) output);
 
-  *cells = *output;
+  swap(&cells,&output);
+  // printf("%p\n", (void *) cells);
+  // printf("%p\n", (void *) output);
+  // printf("\n");
 
   //temp = NULL;
 
