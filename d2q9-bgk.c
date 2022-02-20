@@ -523,6 +523,8 @@ float fushion(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obs
         cells[ii + jj*params.nx].speeds[6] = tmp_cells[ii + jj*params.nx].speeds[8];
         cells[ii + jj*params.nx].speeds[7] = tmp_cells[ii + jj*params.nx].speeds[5];
         cells[ii + jj*params.nx].speeds[8] = tmp_cells[ii + jj*params.nx].speeds[6];
+
+
       }
 
 
@@ -615,14 +617,15 @@ float fushion(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obs
 
 
 
+
       }
     }
   }
 
-  // printf("%p\n", (void *) cells);
-  // printf("%p\n", (void *) output);
+  // printf("%p\n", (void *) *cells);
+  // printf("%p\n", (void *) *output);
 
-  swap(&cells,&output);
+  //swap(&cells,&output);
   // printf("%p\n", (void *) cells);
   // printf("%p\n", (void *) output);
   // printf("\n");
