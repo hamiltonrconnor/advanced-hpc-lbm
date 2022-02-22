@@ -86,9 +86,14 @@ typedef struct
 */
 
 /* load params, allocate memory, load obstacles & initialise fluid particle densities */
+// int initialise(const char* paramfile, const char* obstaclefile,
+//                t_param* params, t_speed** cells_ptr, t_speed** tmp_cells_ptr,
+//                int** obstacles_ptr, float** av_vels_ptr);
+
+
 int initialise(const char* paramfile, const char* obstaclefile,
                t_param* params, t_speed** cells_ptr, t_speed** tmp_cells_ptr,
-               int** obstacles_ptr, float** av_vels_ptr);
+               int** obstacles_ptr, float** av_vels_ptr,float*** grid_ptr,float*** tmp_grid_ptr,float*** o_grid_ptr);
 
 /*
 ** The main calculation methods.
@@ -138,6 +143,9 @@ int main(int argc, char* argv[])
   struct timeval timstr;                                                             /* structure to hold elapsed time */
   double tot_tic, tot_toc, init_tic, init_toc, comp_tic, comp_toc, col_tic, col_toc; /* floating point numbers to calculate elapsed wallclock time */
 
+  float** grid = NULL;
+  float** tmp_grid = NULL;
+  float** o_grid = NULL;
   /* parse the command line */
   if (argc != 3)
   {
@@ -153,8 +161,21 @@ int main(int argc, char* argv[])
   gettimeofday(&timstr, NULL);
   tot_tic = timstr.tv_sec + (timstr.tv_usec / 1000000.0);
   init_tic=tot_tic;
-  initialise(paramfile, obstaclefile, &params, &cells, &tmp_cells, &obstacles, &av_vels);
+  printf("%p\n",&grid);
+  initialise(paramfile, obstaclefile, &params, &cells, &tmp_cells, &obstacles, &av_vels,&grid,&tmp_grid,&o_grid);
+  printf("%p\n",&grid);
+  for (int jj = 0; jj < params.ny; jj++)
+  {
+    for (int ii = 0; ii < params.nx; ii++)
+    {
+      /* centre */
+      float a = 1.f;
+      float*t = &a;
+      grid[0][ii + jj*params.nx] = 1.f;
 
+
+    }
+  }
   /* Init time stops here, compute time starts*/
   gettimeofday(&timstr, NULL);
   init_toc = timstr.tv_sec + (timstr.tv_usec / 1000000.0);
@@ -762,7 +783,7 @@ return EXIT_SUCCESS;
 
 int initialise(const char* paramfile, const char* obstaclefile,
                t_param* params, t_speed** cells_ptr, t_speed** tmp_cells_ptr,
-               int** obstacles_ptr, float** av_vels_ptr)
+               int** obstacles_ptr, float** av_vels_ptr,float*** grid_ptr,float*** tmp_grid_ptr,float*** o_grid_ptr)
 {
   char   message[1024];  /* message buffer */
   FILE*   fp;            /* file pointer */
@@ -830,6 +851,38 @@ int initialise(const char* paramfile, const char* obstaclefile,
   ** a 1D array of these structs.
   */
 
+  /* Main Grid SoA*/
+
+  *grid_ptr  = (float**)malloc(sizeof(float*) * NSPEEDS);
+
+  for(int i = 0; i<NSPEEDS;i++){
+    (*grid_ptr)[i] = (float*)malloc(sizeof(float) * (params->ny * params->nx));
+  }
+
+  /* initialise densities */
+  float w0 = params->density * 4.f / 9.f;
+  float w1 = params->density      / 9.f;
+  float w2 = params->density      / 36.f;
+  for (int jj = 0; jj < params->ny; jj++)
+  {
+    for (int ii = 0; ii < params->nx; ii++)
+    {
+      /* centre */
+      (*grid_ptr)[0][ii + jj*params->nx] = w0;
+      /* axis directions */
+      (*grid_ptr)[1][ii + jj*params->nx] = w1;
+      (*grid_ptr)[2][ii + jj*params->nx] = w1;
+      (*grid_ptr)[3][ii + jj*params->nx] = w1;
+      (*grid_ptr)[4][ii + jj*params->nx] = w1;
+      /* diagonals */
+      (*grid_ptr)[5][ii + jj*params->nx] = w2;
+      (*grid_ptr)[6][ii + jj*params->nx] = w2;
+      (*grid_ptr)[7][ii + jj*params->nx] = w2;
+      (*grid_ptr)[8][ii + jj*params->nx] = w2;
+
+    }
+  }
+
   /* main grid */
   *cells_ptr = (t_speed*)malloc(sizeof(t_speed) * (params->ny * params->nx));
 
@@ -845,10 +898,7 @@ int initialise(const char* paramfile, const char* obstaclefile,
 
   if (*obstacles_ptr == NULL) die("cannot allocate column memory for obstacles", __LINE__, __FILE__);
 
-  /* initialise densities */
-  float w0 = params->density * 4.f / 9.f;
-  float w1 = params->density      / 9.f;
-  float w2 = params->density      / 36.f;
+
 
   for (int jj = 0; jj < params->ny; jj++)
   {
