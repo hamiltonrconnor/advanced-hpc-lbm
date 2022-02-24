@@ -100,9 +100,10 @@ int initialise(const char* paramfile, const char* obstaclefile,
 ** timestep calls, in order, the functions:
 ** accelerate_flow(), propagate(), rebound() & collision()
 */
-int timestep(const t_param params,int* obstacles,float** grid_ptr,float** tmp_grid_ptr,float** o_grid_ptr);
+
+int timestep(const t_param params,int* obstacles,float** restrict grid,float** restrict tmp_grid, float** restrict o_grid);
 //int accelerate_flow(const t_param params, t_speed* cells, int* obstacles);
-int accelerate_flow(const t_param params,  int* obstacles,float** grid);
+int accelerate_flow(const t_param params,  int* obstacles,float** restrict grid);
 int propagate(const t_param params, t_speed* cells, t_speed* tmp_cells);
 int rebound(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obstacles);
 int collision(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obstacles);
@@ -110,7 +111,7 @@ int write_values(const t_param params, float** grid, int* obstacles, float* av_v
 
 
 //float fushion(const t_param params, t_speed** cells_ptr, t_speed** tmp_cells_ptr, int* obstacles,t_speed** output_ptr,float*** grid_ptr,float*** tmp_grid_ptr,float*** o_grid_ptr);
-float fushion(const t_param params,  int* obstacles,float** grid_ptr,float** tmp_grid_ptr,float** o_grid_ptr);
+float fushion(const t_param params,  int* obstacles,float** restrict grid ,float** restrict tmp_grid ,float** restrict o_grid );
 /* finalise, including freeing up allocated memory */
 int finalise(const t_param* params, t_speed** cells_ptr, t_speed** tmp_cells_ptr,
              int** obstacles_ptr, float** av_vels_ptr);
@@ -228,16 +229,16 @@ int main(int argc, char* argv[])
   return EXIT_SUCCESS;
 }
 
-int timestep(const t_param params,int* obstacles,float** grid_ptr,float** tmp_grid_ptr,float** o_grid_ptr)
+int timestep(const t_param params,int* obstacles,float** restrict grid,float** restrict tmp_grid, float** restrict o_grid)
 {
-  accelerate_flow(params, obstacles,grid_ptr);
-  fushion(params, obstacles,grid_ptr,tmp_grid_ptr,o_grid_ptr);
+  accelerate_flow(params, obstacles,grid);
+  fushion(params, obstacles,grid,tmp_grid,o_grid);
 
 
   return EXIT_SUCCESS;
 }
 
-int accelerate_flow(const t_param params,  int* obstacles,float** grid)
+int accelerate_flow(const t_param params,  int* obstacles,float** restrict grid)
 {
   /* compute weighting factors */
   float w1 = params.density * params.accel / 9.f;
@@ -499,21 +500,13 @@ void swap( t_speed **A, t_speed **B){
 //     *x   = *y;
 //     *y   =  t;
 // }
-
-float fushion(const t_param params,  int* obstacles,float** grid_ptr,float** tmp_grid_ptr,float** o_grid_ptr)
+float fushion(const t_param params,  int* obstacles,float** restrict grid ,float** restrict tmp_grid ,float** restrict o_grid )
 {
   //CONSTS FROM COLLISION
   const float c_sq = 1.f / 3.f; /* square of speed of sound */
   const float w0 = 4.f / 9.f;  /* weighting factor */
   const float w1 = 1.f / 9.f;  /* weighting factor */
   const float w2 = 1.f / 36.f; /* weighting factor */
-
-
-  float** grid = grid_ptr;
-  float** tmp_grid = tmp_grid_ptr;
-  float** o_grid = o_grid_ptr;
-
-
 
 
   /* loop over _all_ cells */
@@ -589,7 +582,7 @@ float fushion(const t_param params,  int* obstacles,float** grid_ptr,float** tmp
 
 
         /* compute x velocity component */
-       float u_x = (tmp_grid[1][ii + jj*params.nx]
+       const float u_x = (tmp_grid[1][ii + jj*params.nx]
                      + tmp_grid[5][ii + jj*params.nx]
                      + tmp_grid[8][ii + jj*params.nx]
                      - (tmp_grid[3][ii + jj*params.nx]
@@ -599,7 +592,7 @@ float fushion(const t_param params,  int* obstacles,float** grid_ptr,float** tmp
 
 
         /* compute x velocity component */
-       float u_y = (tmp_grid[2][ii + jj*params.nx]
+       const float u_y = (tmp_grid[2][ii + jj*params.nx]
                      + tmp_grid[5][ii + jj*params.nx]
                      + tmp_grid[6][ii + jj*params.nx]
                      - (tmp_grid[4][ii + jj*params.nx]
@@ -609,7 +602,7 @@ float fushion(const t_param params,  int* obstacles,float** grid_ptr,float** tmp
 
 
         /* velocity squared */
-        float u_sq = u_x * u_x + u_y * u_y;
+        const float u_sq = u_x * u_x + u_y * u_y;
 
         /* directional velocity components */
         float u[NSPEEDS];
