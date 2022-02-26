@@ -508,7 +508,7 @@ float fushion(const t_param params,  int* obstacles,float** restrict grid ,float
   const float w1 = 1.f / 9.f;  /* weighting factor */
   const float w2 = 1.f / 36.f; /* weighting factor */
 
-
+  //#pragma omp simd
   /* loop over _all_ cells */
   for (int jj = 0; jj < params.ny; jj++)
   {
@@ -742,19 +742,19 @@ int initialise(const char* paramfile, const char* obstaclefile,
   *grid_ptr  = (float**)malloc(sizeof(float*) * NSPEEDS);
 
   for(int i = 0; i<NSPEEDS;i++){
-    (*grid_ptr)[i] = (float*)malloc(sizeof(float) * (params->ny * params->nx));
+    (*grid_ptr)[i] = (float*)_mm_malloc(sizeof(float) * (params->ny * params->nx),16);
   }
   /* Temp Grid SoA*/
   *tmp_grid_ptr  = (float**)malloc(sizeof(float*) * NSPEEDS);
 
   for(int i = 0; i<NSPEEDS;i++){
-    (*tmp_grid_ptr)[i] = (float*)malloc(sizeof(float) * (params->ny * params->nx));
+    (*tmp_grid_ptr)[i] = (float*)_mm_malloc(sizeof(float) * (params->ny * params->nx),16);
   }
   /* output Grid SoA*/
   *o_grid_ptr  = (float**)malloc(sizeof(float*) * NSPEEDS);
 
   for(int i = 0; i<NSPEEDS;i++){
-    (*o_grid_ptr)[i] = (float*)malloc(sizeof(float) * (params->ny * params->nx));
+    (*o_grid_ptr)[i] = (float*)_mm_malloc(sizeof(float) * (params->ny * params->nx),1);
   }
 
 
@@ -762,6 +762,8 @@ int initialise(const char* paramfile, const char* obstaclefile,
   float w0 = params->density * 4.f / 9.f;
   float w1 = params->density      / 9.f;
   float w2 = params->density      / 36.f;
+
+  //__assume_aligned((*grid_ptr), 64);
   for (int jj = 0; jj < params->ny; jj++)
   {
     for (int ii = 0; ii < params->nx; ii++)
@@ -782,41 +784,13 @@ int initialise(const char* paramfile, const char* obstaclefile,
     }
   }
 
-  /* main grid */
-  *cells_ptr = (t_speed*)malloc(sizeof(t_speed) * (params->ny * params->nx));
 
-  if (*cells_ptr == NULL) die("cannot allocate memory for cells", __LINE__, __FILE__);
-
-  /* 'helper' grid, used as scratch space */
-  *tmp_cells_ptr = (t_speed*)malloc(sizeof(t_speed) * (params->ny * params->nx));
-
-  if (*tmp_cells_ptr == NULL) die("cannot allocate memory for tmp_cells", __LINE__, __FILE__);
 
   /* the map of obstacles */
   *obstacles_ptr = malloc(sizeof(int) * (params->ny * params->nx));
 
   if (*obstacles_ptr == NULL) die("cannot allocate column memory for obstacles", __LINE__, __FILE__);
 
-
-
-  for (int jj = 0; jj < params->ny; jj++)
-  {
-    for (int ii = 0; ii < params->nx; ii++)
-    {
-      /* centre */
-      (*cells_ptr)[ii + jj*params->nx].speeds[0] = w0;
-      /* axis directions */
-      (*cells_ptr)[ii + jj*params->nx].speeds[1] = w1;
-      (*cells_ptr)[ii + jj*params->nx].speeds[2] = w1;
-      (*cells_ptr)[ii + jj*params->nx].speeds[3] = w1;
-      (*cells_ptr)[ii + jj*params->nx].speeds[4] = w1;
-      /* diagonals */
-      (*cells_ptr)[ii + jj*params->nx].speeds[5] = w2;
-      (*cells_ptr)[ii + jj*params->nx].speeds[6] = w2;
-      (*cells_ptr)[ii + jj*params->nx].speeds[7] = w2;
-      (*cells_ptr)[ii + jj*params->nx].speeds[8] = w2;
-    }
-  }
 
 
 
