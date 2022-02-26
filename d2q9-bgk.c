@@ -508,7 +508,7 @@ float fushion(const t_param params,  int* obstacles,float** restrict grid ,float
   const float w1 = 1.f / 9.f;  /* weighting factor */
   const float w2 = 1.f / 36.f; /* weighting factor */
 
-  //#pragma omp simd
+  #pragma omp simd
   /* loop over _all_ cells */
   for (int jj = 0; jj < params.ny; jj++)
   {
@@ -742,19 +742,19 @@ int initialise(const char* paramfile, const char* obstaclefile,
   *grid_ptr  = (float**)malloc(sizeof(float*) * NSPEEDS);
 
   for(int i = 0; i<NSPEEDS;i++){
-    (*grid_ptr)[i] = (float*)_mm_malloc(sizeof(float) * (params->ny * params->nx),16);
+    (*grid_ptr)[i] = (float*)aligned_alloc(sizeof(float) * (params->ny * params->nx),16);
   }
   /* Temp Grid SoA*/
   *tmp_grid_ptr  = (float**)malloc(sizeof(float*) * NSPEEDS);
 
   for(int i = 0; i<NSPEEDS;i++){
-    (*tmp_grid_ptr)[i] = (float*)_mm_malloc(sizeof(float) * (params->ny * params->nx),16);
+    (*tmp_grid_ptr)[i] = (float*)aligned_alloc(sizeof(float) * (params->ny * params->nx),16);
   }
   /* output Grid SoA*/
   *o_grid_ptr  = (float**)malloc(sizeof(float*) * NSPEEDS);
 
   for(int i = 0; i<NSPEEDS;i++){
-    (*o_grid_ptr)[i] = (float*)_mm_malloc(sizeof(float) * (params->ny * params->nx),1);
+    (*o_grid_ptr)[i] = (float*)aligned_alloc(sizeof(float) * (params->ny * params->nx),1);
   }
 
 
