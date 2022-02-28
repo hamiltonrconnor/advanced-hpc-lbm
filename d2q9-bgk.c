@@ -57,6 +57,7 @@
 #include <sys/resource.h>
 
 #include <string.h>
+#include <omp.h>
 
 #define NSPEEDS         9
 #define FINALSTATEFILE  "final_state.dat"
@@ -492,13 +493,12 @@ float fushion(const t_param params, t_speed** cells_ptr, t_speed** tmp_cells_ptr
   t_speed* output = *output_ptr;
 
 
-
-
   /* loop over _all_ cells */
-  for (int jj = 0; jj < params.ny; jj++)
-  {
-    for (int ii = 0; ii < params.nx; ii++)
-    {
+  #pragma omp parallel for
+    for(int n=0; n<params.ny*params.nx; n++) {
+      int ii = n/params.nx; int jj=n%params.nx;
+      //printf("%d\n",omp_get_num_threads());
+
       //PROPAGATE
       /* determine indices of axis-direction neighbours
       ** respecting periodic boundary conditions (wrap around) */
@@ -661,7 +661,9 @@ float fushion(const t_param params, t_speed** cells_ptr, t_speed** tmp_cells_ptr
 
       }
     }
-  }
+
+
+
   //printf()
 
   //printf("%lu\n",sizeof(cells)* (params.ny * params.nx) );
