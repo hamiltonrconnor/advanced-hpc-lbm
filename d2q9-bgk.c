@@ -492,7 +492,7 @@ float fushion(const t_param params, t_speed** cells_ptr, t_speed** tmp_cells_ptr
   t_speed* tmp_cells = *tmp_cells_ptr;
   t_speed* output = *output_ptr;
 
-
+	//Comment asdas
   /* loop over _all_ cells */
   #pragma omp parallel for
     for(int n=0; n<params.ny*params.nx; n++) {
