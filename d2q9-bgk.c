@@ -527,7 +527,7 @@ float fushion(const t_param params, t_speed** cells_ptr, t_speed** tmp_cells_ptr
       if (!obstacles[ii + jj*params.nx])
       {
         collision(params, output, tmp_cells,ii,jj);
-
+        //Cooment
         // /* compute local density total */
         // float local_density = 0.f;
         //
