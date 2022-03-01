@@ -477,6 +477,12 @@ float fushion(const t_param params, t_speed** cells_ptr, t_speed** tmp_cells_ptr
   t_speed* tmp_cells = *tmp_cells_ptr;
   t_speed* output = *output_ptr;
 
+  int    tot_cells = 0;  /* no. of cells used in calculation */
+  float tot_u;          /* accumulated magnitudes of velocity for each cell */
+
+  /* initialise */
+  tot_u = 0.f;
+
 	//Comment asdas
   /* loop over _all_ cells */
   #pragma omp parallel for
@@ -639,57 +645,89 @@ float fushion(const t_param params, t_speed** cells_ptr, t_speed** tmp_cells_ptr
 
         }
 
+        /* local density total */
+        local_density = 0.f;
 
-
-
-      }
-    }
-
-    int    tot_cells = 0;  /* no. of cells used in calculation */
-    float tot_u;          /* accumulated magnitudes of velocity for each cell */
-
-    /* initialise */
-    tot_u = 0.f;
-
-    /* loop over all non-blocked cells */
-    for (int jj = 0; jj < params.ny; jj++)
-    {
-      for (int ii = 0; ii < params.nx; ii++)
-      {
-        /* ignore occupied cells */
-        if (!obstacles[ii + jj*params.nx])
+        for (int kk = 0; kk < NSPEEDS; kk++)
         {
-          /* local density total */
-          float local_density = 0.f;
-
-          for (int kk = 0; kk < NSPEEDS; kk++)
-          {
-            local_density += output[ii + jj*params.nx].speeds[kk];
-          }
-
-          /* x-component of velocity */
-          float u_x = (output[ii + jj*params.nx].speeds[1]
-                        + output[ii + jj*params.nx].speeds[5]
-                        + output[ii + jj*params.nx].speeds[8]
-                        - (output[ii + jj*params.nx].speeds[3]
-                           + output[ii + jj*params.nx].speeds[6]
-                           + output[ii + jj*params.nx].speeds[7]))
-                       / local_density;
-          /* compute y velocity component */
-          float u_y = (output[ii + jj*params.nx].speeds[2]
-                        + output[ii + jj*params.nx].speeds[5]
-                        + output[ii + jj*params.nx].speeds[6]
-                        - (output[ii + jj*params.nx].speeds[4]
-                           + output[ii + jj*params.nx].speeds[7]
-                           + output[ii + jj*params.nx].speeds[8]))
-                       / local_density;
-          /* accumulate the norm of x- and y- velocity components */
-          tot_u += sqrtf((u_x * u_x) + (u_y * u_y));
-          /* increase counter of inspected cells */
-          ++tot_cells;
+          local_density += output[ii + jj*params.nx].speeds[kk];
         }
+
+        /* x-component of velocity */
+        u_x = (output[ii + jj*params.nx].speeds[1]
+                      + output[ii + jj*params.nx].speeds[5]
+                      + output[ii + jj*params.nx].speeds[8]
+                      - (output[ii + jj*params.nx].speeds[3]
+                         + output[ii + jj*params.nx].speeds[6]
+                         + output[ii + jj*params.nx].speeds[7]))
+                     / local_density;
+        /* compute y velocity component */
+        u_y = (output[ii + jj*params.nx].speeds[2]
+                      + output[ii + jj*params.nx].speeds[5]
+                      + output[ii + jj*params.nx].speeds[6]
+                      - (output[ii + jj*params.nx].speeds[4]
+                         + output[ii + jj*params.nx].speeds[7]
+                         + output[ii + jj*params.nx].speeds[8]))
+                     / local_density;
+        #pragma omp critical
+        {
+        /* accumulate the norm of x- and y- velocity components */
+        tot_u += sqrtf((u_x * u_x) + (u_y * u_y));
+        /* increase counter of inspected cells */
+        ++tot_cells;
+       }
+
+
+
+
       }
     }
+
+    // int    tot_cells = 0;  /* no. of cells used in calculation */
+    // float tot_u;          /* accumulated magnitudes of velocity for each cell */
+    //
+    // /* initialise */
+    // tot_u = 0.f;
+    //
+    // /* loop over all non-blocked cells */
+    // for (int jj = 0; jj < params.ny; jj++)
+    // {
+    //   for (int ii = 0; ii < params.nx; ii++)
+    //   {
+    //     /* ignore occupied cells */
+    //     if (!obstacles[ii + jj*params.nx])
+    //     {
+    //       /* local density total */
+    //       float local_density = 0.f;
+    //
+    //       for (int kk = 0; kk < NSPEEDS; kk++)
+    //       {
+    //         local_density += output[ii + jj*params.nx].speeds[kk];
+    //       }
+    //
+    //       /* x-component of velocity */
+    //       float u_x = (output[ii + jj*params.nx].speeds[1]
+    //                     + output[ii + jj*params.nx].speeds[5]
+    //                     + output[ii + jj*params.nx].speeds[8]
+    //                     - (output[ii + jj*params.nx].speeds[3]
+    //                        + output[ii + jj*params.nx].speeds[6]
+    //                        + output[ii + jj*params.nx].speeds[7]))
+    //                    / local_density;
+    //       /* compute y velocity component */
+    //       float u_y = (output[ii + jj*params.nx].speeds[2]
+    //                     + output[ii + jj*params.nx].speeds[5]
+    //                     + output[ii + jj*params.nx].speeds[6]
+    //                     - (output[ii + jj*params.nx].speeds[4]
+    //                        + output[ii + jj*params.nx].speeds[7]
+    //                        + output[ii + jj*params.nx].speeds[8]))
+    //                    / local_density;
+    //       /* accumulate the norm of x- and y- velocity components */
+    //       tot_u += sqrtf((u_x * u_x) + (u_y * u_y));
+    //       /* increase counter of inspected cells */
+    //       ++tot_cells;
+    //     }
+    //   }
+    // }
 
     return tot_u / (float)tot_cells;
 
