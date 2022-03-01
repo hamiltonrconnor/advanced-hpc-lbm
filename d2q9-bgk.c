@@ -485,7 +485,7 @@ float fushion(const t_param params, t_speed** cells_ptr, t_speed** tmp_cells_ptr
 
 	//Comment asdas
   /* loop over _all_ cells */
-  #pragma omp parallel for
+  #pragma omp parallel for reduction(+:tot_u,tot_cells)
     for(int n=0; n<params.ny*params.nx; n++) {
       int ii = n/params.nx; int jj=n%params.nx;
       //printf("%d\n",omp_get_num_threads());
@@ -669,13 +669,12 @@ float fushion(const t_param params, t_speed** cells_ptr, t_speed** tmp_cells_ptr
                          + output[ii + jj*params.nx].speeds[7]
                          + output[ii + jj*params.nx].speeds[8]))
                      / local_density;
-        #pragma omp critical
-        {
+
         /* accumulate the norm of x- and y- velocity components */
         tot_u += sqrtf((u_x * u_x) + (u_y * u_y));
         /* increase counter of inspected cells */
         ++tot_cells;
-       }
+
 
 
 
