@@ -134,9 +134,10 @@ void usage(const char* exe);
 */
 int main(int argc, char* argv[])
 {
-  setenv("OMP_NUM_THREADS","28,14,10,4,2",1);
+  //setenv("OMP_NUM_THREADS","28,14,10,4,2",1);
   setenv("OMP_PROC_BIND","close",1);
   setenv("OMP_PLACES","sockets",1);
+  printf("%d\n",omp_get_max_threads());
   // #pragma omp parallel
   // {
   //   printf("%d\n",omp_get_max_threads());
