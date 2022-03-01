@@ -64,6 +64,7 @@
 #define AVVELSFILE      "av_vels.dat"
 //#define DEBUG
 
+
 /* struct to hold the parameter values */
 typedef struct
 {
@@ -133,6 +134,13 @@ void usage(const char* exe);
 */
 int main(int argc, char* argv[])
 {
+  setenv("OMP_NUM_THREADS","28",1);
+  setenv("OMP_PROC_BIND","close",1);
+  // #pragma omp parallel
+  // {
+  //   printf("%d\n",omp_get_max_threads());
+  // }
+
   char*    paramfile = NULL;    /* name of the input parameter file */
   char*    obstaclefile = NULL; /* name of a the input obstacle file */
   t_param  params;              /* struct to hold parameter values */
@@ -678,7 +686,7 @@ float fushion(const t_param params, t_speed** cells_ptr, t_speed** tmp_cells_ptr
       }
     }
 
-  
+
 
     return tot_u / (float)tot_cells;
 
@@ -874,11 +882,10 @@ int initialise(const char* paramfile, const char* obstaclefile,
   float w0 = params->density * 4.f / 9.f;
   float w1 = params->density      / 9.f;
   float w2 = params->density      / 36.f;
+  #pragma omp parallel for
+  for(int n=0; n<params->ny*params->nx; n++) {
+      int ii = n/params->nx; int jj=n%params->nx;
 
-  for (int jj = 0; jj < params->ny; jj++)
-  {
-    for (int ii = 0; ii < params->nx; ii++)
-    {
       /* centre */
       (*cells_ptr)[ii + jj*params->nx].speeds[0] = w0;
       /* axis directions */
@@ -891,7 +898,7 @@ int initialise(const char* paramfile, const char* obstaclefile,
       (*cells_ptr)[ii + jj*params->nx].speeds[6] = w2;
       (*cells_ptr)[ii + jj*params->nx].speeds[7] = w2;
       (*cells_ptr)[ii + jj*params->nx].speeds[8] = w2;
-    }
+
   }
 
   /* first set all cells in obstacle array to zero */
