@@ -136,7 +136,7 @@ int main(int argc, char* argv[])
 {
   //setenv("OMP_NUM_THREADS","28,14,10,4,2",1);
   setenv("OMP_PROC_BIND","close",1);
-  setenv("OMP_PLACES","sockets",1);
+  setenv("OMP_PLACES","cores",1);
   printf("%d\n",omp_get_max_threads());
   // #pragma omp parallel
   // {
@@ -498,7 +498,7 @@ float fushion(const t_param params, t_speed** cells_ptr, t_speed** tmp_cells_ptr
 
 	//Comment asdas
   /* loop over _all_ cells */
-  #pragma omp parallel for reduction(+:tot_u,tot_cells)
+  //#pragma omp parallel for reduction(+:tot_u,tot_cells)
     for(int n=0; n<params.ny*params.nx; n++) {
       int ii = n/params.nx; int jj=n%params.nx;
       //printf("%d\n",omp_get_num_threads());
@@ -887,7 +887,7 @@ int initialise(const char* paramfile, const char* obstaclefile,
   float w0 = params->density * 4.f / 9.f;
   float w1 = params->density      / 9.f;
   float w2 = params->density      / 36.f;
-  #pragma omp parallel for
+  //#pragma omp parallel for
   for(int n=0; n<params->ny*params->nx; n++) {
       int ii = n/params->nx; int jj=n%params->nx;
 
