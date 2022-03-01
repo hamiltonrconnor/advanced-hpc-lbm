@@ -498,8 +498,7 @@ float fushion(const t_param params, t_speed** cells_ptr, t_speed** tmp_cells_ptr
 	//Comment asdas
   /* loop over _all_ cells */
   #pragma omp parallel for reduction(+:tot_u,tot_cells)
-  for(int n=0; n<params.ny*params.nx; n++) {
-
+    for(int n=0; n<params.ny*params.nx; n++) {
       int ii = n/params.nx; int jj=n%params.nx;
       //printf("%d\n",omp_get_num_threads());
       //propagate(params,cells,tmp_cells,ii,jj);
@@ -523,13 +522,11 @@ float fushion(const t_param params, t_speed** cells_ptr, t_speed** tmp_cells_ptr
       tmp_cells[ii + jj*params.nx].speeds[7] = cells[x_e + y_n*params.nx].speeds[7]; /* south-west */
       tmp_cells[ii + jj*params.nx].speeds[8] = cells[x_w + y_n*params.nx].speeds[8]; /* south-east */
 
-      #pragma omp task
-      {
+
       //REBOUND
       /* if the cell contains an obstacle */
       if (obstacles[jj*params.nx + ii])
       {
-
         //.rebound(params, output,tmp_cells,ii, jj );
         /* called after propagate, so taking values from scratch space
         ** mirroring, and writing into main grid */
@@ -555,10 +552,8 @@ float fushion(const t_param params, t_speed** cells_ptr, t_speed** tmp_cells_ptr
 
 
       }
-     }
 
-     #pragma omp task
-     {
+
       //COLLISION
       /* don't consider occupied cells */
       if (!obstacles[ii + jj*params.nx])
@@ -610,7 +605,10 @@ float fushion(const t_param params, t_speed** cells_ptr, t_speed** tmp_cells_ptr
         d_equ[0] = w0 * local_density
                    * (1.f - u_sq / (2.f * c_sq));
         /* axis speeds: weight w1 */
+        // d_equ[1] = w1 * local_density *
+        // (1.f + (u[1] / c_sq )+ ((u[1] * u[1]) / (2.f * c_sq * c_sq)) - (u_sq / (2.f * c_sq)));
 
+        //printf("%f\n",w1 *local_density *((2.f*c_sq*c_sq)+(2.f*c_sq*u[1])+(u[1]*u[1])-(u_sq*c_sq))/(2.f*c_sq*c_sq));
         d_equ[1] = w1 *local_density *((2.f*c_sq*c_sq)+(2.f*c_sq*u[1])+(u[1]*u[1])-(u_sq*c_sq))/(2.f*c_sq*c_sq);
 
         d_equ[2] = w1 *local_density *((2.f*c_sq*c_sq)+(2.f*c_sq*u[2])+(u[2]*u[2])-(u_sq*c_sq))/(2.f*c_sq*c_sq);
@@ -621,7 +619,31 @@ float fushion(const t_param params, t_speed** cells_ptr, t_speed** tmp_cells_ptr
         d_equ[7] = w2 *local_density *((2.f*c_sq*c_sq)+(2.f*c_sq*u[7])+(u[7]*u[7])-(u_sq*c_sq))/(2.f*c_sq*c_sq);
         d_equ[8] = w2 *local_density *((2.f*c_sq*c_sq)+(2.f*c_sq*u[8])+(u[8]*u[8])-(u_sq*c_sq))/(2.f*c_sq*c_sq);
 
-
+        // d_equ[1] = w1 * local_density *(1.f + u[1] / c_sq
+        //                                     + (u[1] * u[1]) / (2.f * c_sq * c_sq)
+        //                                     - u_sq / (2.f * c_sq));
+        // d_equ[2] = w1 * local_density * (1.f + u[2] / c_sq
+        //                                  + (u[2] * u[2]) / (2.f * c_sq * c_sq)
+        //                                  - u_sq / (2.f * c_sq));
+        // d_equ[3] = w1 * local_density * (1.f + u[3] / c_sq
+        //                                  + (u[3] * u[3]) / (2.f * c_sq * c_sq)
+        //                                  - u_sq / (2.f * c_sq));
+        // d_equ[4] = w1 * local_density * (1.f + u[4] / c_sq
+        //                                  + (u[4] * u[4]) / (2.f * c_sq * c_sq)
+        //                                  - u_sq / (2.f * c_sq));
+        // /* diagonal speeds: weight w2 */
+        // d_equ[5] = w2 * local_density * (1.f + u[5] / c_sq
+        //                                  + (u[5] * u[5]) / (2.f * c_sq * c_sq)
+        //                                  - u_sq / (2.f * c_sq));
+        // d_equ[6] = w2 * local_density * (1.f + u[6] / c_sq
+        //                                  + (u[6] * u[6]) / (2.f * c_sq * c_sq)
+        //                                  - u_sq / (2.f * c_sq));
+        // d_equ[7] = w2 * local_density * (1.f + u[7] / c_sq
+        //                                  + (u[7] * u[7]) / (2.f * c_sq * c_sq)
+        //                                  - u_sq / (2.f * c_sq));
+        // d_equ[8] = w2 * local_density * (1.f + u[8] / c_sq
+        //                                  + (u[8] * u[8]) / (2.f * c_sq * c_sq)
+        //                                  - u_sq / (2.f * c_sq));
         /* local density total */
         float av_local_density = 0.f;
         /* relaxation step */
@@ -637,18 +659,8 @@ float fushion(const t_param params, t_speed** cells_ptr, t_speed** tmp_cells_ptr
           //                                                                                 * (d_equ[kk] - tmp_cells[ii + jj*params.nx].speeds[kk]);
 
         }
-      }
-      }
 
-      #pragma omp taskwait
-      if (!obstacles[ii + jj*params.nx])
-      {
-        /* local density total */
-        float av_local_density = 0.f;
-        for (int kk = 0; kk < NSPEEDS; kk++)
-        {
-          av_local_density += output[ii + jj*params.nx].speeds[kk];
-        }
+
         /* x-component of velocity */
         float av_u_x = (output[ii + jj*params.nx].speeds[1]
                       + output[ii + jj*params.nx].speeds[5]
@@ -674,11 +686,9 @@ float fushion(const t_param params, t_speed** cells_ptr, t_speed** tmp_cells_ptr
 
 
 
+
       }
-
-
     }
-
 
 
 
