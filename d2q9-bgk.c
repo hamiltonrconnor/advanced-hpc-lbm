@@ -134,8 +134,9 @@ void usage(const char* exe);
 */
 int main(int argc, char* argv[])
 {
-  setenv("OMP_NUM_THREADS","28",1);
+  setenv("OMP_NUM_THREADS","28,14,10,4,2",1);
   setenv("OMP_PROC_BIND","close",1);
+  setenv("OMP_PLACES","sockets",1);
   // #pragma omp parallel
   // {
   //   printf("%d\n",omp_get_max_threads());
@@ -178,19 +179,22 @@ int main(int argc, char* argv[])
   for (int tt = 0; tt < params.maxIters; tt++)
   {
     av_vels[tt] = timestep(params, &cells, &tmp_cells, obstacles,&output);
+    t_speed* temp = cells;
+    cells = output;
+    output = temp;
     //temp code till i can workout the pointer swapping
-    for (int jj = 0; jj < params.ny; jj++)
-   {
-     for (int ii = 0; ii < params.nx; ii++)
-     {
-       for (int kk = 0; kk < NSPEEDS; kk++)
-       {
-         cells[ii + jj*params.nx].speeds[kk]= output[ii + jj*params.nx].speeds[kk];
-
-
-       }
-     }
-   }
+   //  for (int jj = 0; jj < params.ny; jj++)
+   // {
+   //   for (int ii = 0; ii < params.nx; ii++)
+   //   {
+   //     for (int kk = 0; kk < NSPEEDS; kk++)
+   //     {
+   //       cells[ii + jj*params.nx].speeds[kk]= output[ii + jj*params.nx].speeds[kk];
+   //
+   //
+   //     }
+   //   }
+   // }
 
     //av_vels[tt] = av_velocity(params, cells, obstacles);
 #ifdef DEBUG
