@@ -156,12 +156,14 @@ int main(int argc, char* argv[])
   init_toc = timstr.tv_sec + (timstr.tv_usec / 1000000.0);
   comp_tic=init_toc;
 
+  t_speed** cells_ptr = &cells;
+  t_speed** tmp_cells_ptr= &tmp_cells;
   for (int tt = 0; tt < params.maxIters; tt++)
   {
-    av_vels[tt] = timestep(params, &cells, &tmp_cells, obstacles);
-    t_speed* temp = cells;
-    cells = tmp_cells;
-    tmp_cells = temp;
+    av_vels[tt] = timestep(params, cells_ptr, tmp_cells_ptr, obstacles);
+    t_speed** temp = cells_ptr;
+    cells_ptr= tmp_cells_ptr;
+    tmp_cells_ptr= temp;
     //av_vels[tt] = av_velocity(params, cells, obstacles);
 #ifdef DEBUG
     printf("==timestep: %d==\n", tt);
