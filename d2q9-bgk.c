@@ -555,7 +555,7 @@ float fusion(const t_param params, t_speed** cells_ptr, t_speed** tmp_cells_ptr,
 
       //COLLISION
       /* don't consider occupied cells */
-      if (!obstacles[ii + jj*params.nx])
+      else
       {
         //collision(params, output, tmp_cells,ii,jj);
         //Cooment
@@ -766,12 +766,12 @@ int initialise(const char* paramfile, const char* obstaclefile,
   */
 
   /* main grid */
-  *cells_ptr = (t_speed*)malloc(sizeof(t_speed) * (params->ny * params->nx));
+  *cells_ptr = (t_speed*)aligned_alloc(sizeof(t_speed) * (params->ny * params->nx),64);
 
   if (*cells_ptr == NULL) die("cannot allocate memory for cells", __LINE__, __FILE__);
 
   /* 'helper' grid, used as scratch space */
-  *tmp_cells_ptr = (t_speed*)malloc(sizeof(t_speed) * (params->ny * params->nx));
+  *tmp_cells_ptr = (t_speed*)aligned_alloc(sizeof(t_speed) * (params->ny * params->nx),64);
 
   if (*tmp_cells_ptr == NULL) die("cannot allocate memory for tmp_cells", __LINE__, __FILE__);
 
