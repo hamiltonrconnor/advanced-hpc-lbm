@@ -471,7 +471,7 @@ float fusion(const t_param params, t_speed** cells_ptr, t_speed** tmp_cells_ptr,
   //
     // for(int n=0; n<params.ny*params.nx; n++) {
     //   int ii = n/params.nx; int jj=n%params.nx;
-    //#pragma omp parallel for collapse(2) reduction(+:tot_u,tot_cells)
+    #pragma omp parallel for collapse(2) reduction(+:tot_u,tot_cells)
       for (int jj = 0; jj < params.ny; jj++)
       {
         for (int ii = 0; ii < params.nx; ii++)
@@ -506,22 +506,22 @@ float fusion(const t_param params, t_speed** cells_ptr, t_speed** tmp_cells_ptr,
         //.rebound(params, output,tmp_cells,ii, jj );
         /* called after propagate, so taking values from scratch space
         ** mirroring, and writing into main grid */
-        // float c1 = tmp_cells[ii + jj*params.nx].speeds[1];
-        // float c2 = tmp_cells[ii + jj*params.nx].speeds[2];
-        // float c3 = tmp_cells[ii + jj*params.nx].speeds[3];
-        // float c4 = tmp_cells[ii + jj*params.nx].speeds[4];
-        // float c5 = tmp_cells[ii + jj*params.nx].speeds[5];
-        // float c6 = tmp_cells[ii + jj*params.nx].speeds[6];
-        // float c7 = tmp_cells[ii + jj*params.nx].speeds[7];
-        // float c8 = tmp_cells[ii + jj*params.nx].speeds[8];
-        // tmp_cells[ii + jj*params.nx].speeds[1] = c3;
-        // tmp_cells[ii + jj*params.nx].speeds[2] = c4;
-        // tmp_cells[ii + jj*params.nx].speeds[3] = c1;
-        // tmp_cells[ii + jj*params.nx].speeds[4] = c2;
-        // tmp_cells[ii + jj*params.nx].speeds[5] = c7;
-        // tmp_cells[ii + jj*params.nx].speeds[6] = c8;
-        // tmp_cells[ii + jj*params.nx].speeds[7] = c5;
-        // tmp_cells[ii + jj*params.nx].speeds[8] = c6;
+        float c1 = tmp_cells[ii + jj*params.nx].speeds[1];
+        float c2 = tmp_cells[ii + jj*params.nx].speeds[2];
+        float c3 = tmp_cells[ii + jj*params.nx].speeds[3];
+        float c4 = tmp_cells[ii + jj*params.nx].speeds[4];
+        float c5 = tmp_cells[ii + jj*params.nx].speeds[5];
+        float c6 = tmp_cells[ii + jj*params.nx].speeds[6];
+        float c7 = tmp_cells[ii + jj*params.nx].speeds[7];
+        float c8 = tmp_cells[ii + jj*params.nx].speeds[8];
+        tmp_cells[ii + jj*params.nx].speeds[1] = c3;
+        tmp_cells[ii + jj*params.nx].speeds[2] = c4;
+        tmp_cells[ii + jj*params.nx].speeds[3] = c1;
+        tmp_cells[ii + jj*params.nx].speeds[4] = c2;
+        tmp_cells[ii + jj*params.nx].speeds[5] = c7;
+        tmp_cells[ii + jj*params.nx].speeds[6] = c8;
+        tmp_cells[ii + jj*params.nx].speeds[7] = c5;
+        tmp_cells[ii + jj*params.nx].speeds[8] = c6;
 
 
         //
@@ -535,17 +535,17 @@ float fusion(const t_param params, t_speed** cells_ptr, t_speed** tmp_cells_ptr,
         // output[ii + jj*params.nx].speeds[6] = tmp_cells[ii + jj*params.nx].speeds[8];
         // output[ii + jj*params.nx].speeds[7] = tmp_cells[ii + jj*params.nx].speeds[5];
         // output[ii + jj*params.nx].speeds[8] = tmp_cells[ii + jj*params.nx].speeds[6];
-        t_speed temp;
-        temp.speeds[0]= tmp_cells[ii + jj*params.nx].speeds[0];
-        temp.speeds[1]= tmp_cells[ii + jj*params.nx].speeds[3];
-        temp.speeds[2]= tmp_cells[ii + jj*params.nx].speeds[4];
-        temp.speeds[3]= tmp_cells[ii + jj*params.nx].speeds[1];
-        temp.speeds[4]= tmp_cells[ii + jj*params.nx].speeds[2];
-        temp.speeds[5]= tmp_cells[ii + jj*params.nx].speeds[7];
-        temp.speeds[6]= tmp_cells[ii + jj*params.nx].speeds[8];
-        temp.speeds[7]= tmp_cells[ii + jj*params.nx].speeds[5];
-        temp.speeds[8]= tmp_cells[ii + jj*params.nx].speeds[6];
-        tmp_cells[ii + jj*params.nx] = temp;
+        // t_speed temp;
+        // temp.speeds[0]= tmp_cells[ii + jj*params.nx].speeds[0];
+        // temp.speeds[1]= tmp_cells[ii + jj*params.nx].speeds[3];
+        // temp.speeds[2]= tmp_cells[ii + jj*params.nx].speeds[4];
+        // temp.speeds[3]= tmp_cells[ii + jj*params.nx].speeds[1];
+        // temp.speeds[4]= tmp_cells[ii + jj*params.nx].speeds[2];
+        // temp.speeds[5]= tmp_cells[ii + jj*params.nx].speeds[7];
+        // temp.speeds[6]= tmp_cells[ii + jj*params.nx].speeds[8];
+        // temp.speeds[7]= tmp_cells[ii + jj*params.nx].speeds[5];
+        // temp.speeds[8]= tmp_cells[ii + jj*params.nx].speeds[6];
+        // tmp_cells[ii + jj*params.nx] = temp;
 
 
 
@@ -784,7 +784,7 @@ int initialise(const char* paramfile, const char* obstaclefile,
   float w0 = params->density * 4.f / 9.f;
   float w1 = params->density      / 9.f;
   float w2 = params->density      / 36.f;
-
+  #pragma omp parallel for collapse(2)
   for (int jj = 0; jj < params->ny; jj++)
   {
     for (int ii = 0; ii < params->nx; ii++)
