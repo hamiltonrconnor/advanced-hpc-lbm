@@ -766,12 +766,12 @@ int initialise(const char* paramfile, const char* obstaclefile,
   */
 
   /* main grid */
-  *cells_ptr = (t_speed*)aligned_alloc(sizeof(t_speed) * (params->ny * params->nx),64);
+  *cells_ptr = (t_speed*)malloc(sizeof(t_speed) * (params->ny * params->nx));
 
   if (*cells_ptr == NULL) die("cannot allocate memory for cells", __LINE__, __FILE__);
 
   /* 'helper' grid, used as scratch space */
-  *tmp_cells_ptr = (t_speed*)aligned_alloc(sizeof(t_speed) * (params->ny * params->nx),64);
+  *tmp_cells_ptr = (t_speed*)malloc(sizeof(t_speed) * (params->ny * params->nx));
 
   if (*tmp_cells_ptr == NULL) die("cannot allocate memory for tmp_cells", __LINE__, __FILE__);
 
