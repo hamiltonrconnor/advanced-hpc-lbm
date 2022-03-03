@@ -648,7 +648,7 @@ float fusion(const t_param params,  int* restrict  obstacles,soa* restrict grid_
                     / local_density;
 
         /* velocity squared */
-        float u_sq = u_x * u_x + u_y * u_y;
+        const float u_sq = u_x * u_x + u_y * u_y;
 
         /* directional velocity components */
         float u[NSPEEDS];
