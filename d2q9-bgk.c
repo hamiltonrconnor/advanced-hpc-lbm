@@ -568,15 +568,15 @@ float fusion(const t_param params,  int* restrict  obstacles,soa* restrict grid_
       ** appropriate directions of travel and writing into
       ** scratch space grid */
 
-      tmp_grid.s0[ii + jj*params.nx] = grid.s0[ii + jj*params.nx]; /* central cell, no movement */
-      tmp_grid.s1[ii + jj*params.nx] = grid.s1[x_w + jj*params.nx]; /* east */
-      tmp_grid.s2[ii + jj*params.nx] = grid.s2[ii + y_s*params.nx]; /* north */
-      tmp_grid.s3[ii + jj*params.nx] = grid.s3[x_e + jj*params.nx]; /* west */
-      tmp_grid.s4[ii + jj*params.nx] = grid.s4[ii + y_n*params.nx]; /* south */
-      tmp_grid.s5[ii + jj*params.nx] = grid.s5[x_w + y_s*params.nx]; /* north-east */
-      tmp_grid.s6[ii + jj*params.nx] = grid.s6[x_e + y_s*params.nx]; /* north-west */
-      tmp_grid.s7[ii + jj*params.nx] = grid.s7[x_e + y_n*params.nx]; /* south-west */
-      tmp_grid.s8[ii + jj*params.nx]= grid.s8[x_w + y_n*params.nx]; /* south-east */
+      (*tmp_grid_ptr).s0[ii + jj*params.nx] = grid.s0[ii + jj*params.nx]; /* central cell, no movement */
+      (*tmp_grid_ptr).s1[ii + jj*params.nx] = grid.s1[x_w + jj*params.nx]; /* east */
+      (*tmp_grid_ptr).s2[ii + jj*params.nx] = grid.s2[ii + y_s*params.nx]; /* north */
+      (*tmp_grid_ptr).s3[ii + jj*params.nx] = grid.s3[x_e + jj*params.nx]; /* west */
+      (*tmp_grid_ptr).s4[ii + jj*params.nx] = grid.s4[ii + y_n*params.nx]; /* south */
+      (*tmp_grid_ptr).s5[ii + jj*params.nx] = grid.s5[x_w + y_s*params.nx]; /* north-east */
+      (*tmp_grid_ptr).s6[ii + jj*params.nx] = grid.s6[x_e + y_s*params.nx]; /* north-west */
+      (*tmp_grid_ptr).s7[ii + jj*params.nx] = grid.s7[x_e + y_n*params.nx]; /* south-west */
+      (*tmp_grid_ptr).s8[ii + jj*params.nx]= grid.s8[x_w + y_n*params.nx]; /* south-east */
 
 
       //REBOUND
