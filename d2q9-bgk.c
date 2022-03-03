@@ -679,18 +679,18 @@ float fusion(const t_param params,  int* restrict  obstacles,soa* restrict grid_
 
         /* directional velocity components */
         float t[NSPEEDS] ;
-        t[1] =   u_x;        /* east */
-        t[2] =         u_y;  /* north */
-        t[3] = - u_x;        /* west */
-        t[4] =       - u_y;  /* south */
-        t[5] =   u_x + u_y;  /* north-east */
-        t[6] = - u_x + u_y;  /* north-west */
-        t[7] = - u_x - u_y;  /* south-west */
-        t[8] =   u_x - u_y;  /* south-east */
-        const float u[NSPEEDS] = t;
+        u[1] =   u_x;        /* east */
+        u[2] =         u_y;  /* north */
+        u[3] = - u_x;        /* west */
+        u[4] =       - u_y;  /* south */
+        u[5] =   u_x + u_y;  /* north-east */
+        u[6] = - u_x + u_y;  /* north-west */
+        u[7] = - u_x - u_y;  /* south-west */
+        u[8] =   u_x - u_y;  /* south-east */
+
         /* equilibrium densities */
          //float d_equ[NSPEEDS];
-        float d_equ[NSPEEDS] = {w0 * local_density * (1.f - u_sq / (2.f * c_sq)),
+         float d_equ[NSPEEDS] = {w0 * local_density * (1.f - u_sq / (2.f * c_sq)),
                                        w1 *local_density *((2.f*c_sq*c_sq)+(2.f*c_sq*u[1])+(u[1]*u[1])-(u_sq*c_sq))/(2.f*c_sq*c_sq),
                                        w1 *local_density *((2.f*c_sq*c_sq)+(2.f*c_sq*u[2])+(u[2]*u[2])-(u_sq*c_sq))/(2.f*c_sq*c_sq),
                                        w1 *local_density *((2.f*c_sq*c_sq)+(2.f*c_sq*u[3])+(u[3]*u[3])-(u_sq*c_sq))/(2.f*c_sq*c_sq),
