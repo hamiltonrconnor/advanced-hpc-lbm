@@ -484,13 +484,35 @@ float av_velocity(const t_param params, int* obstacles,soa* grid_ptr)
 float fusion(const t_param params,  int* obstacles,soa* restrict grid_ptr,soa* restrict tmp_grid_ptr)
 {
 
-  const soa grid = *(soa*)__builtin_assume_aligned(grid_ptr, 64);
-  const soa tmp_grid = *(soa*)__builtin_assume_aligned(tmp_grid_ptr, 64);
+   soa grid = *grid_ptr;
+   soa tmp_grid = *tmp_grid_ptr;
   //CONSTS FROM COLLISION
   const float c_sq = 1.f / 3.f; /* square of speed of sound */
   const float w0 = 4.f / 9.f;  /* weighting factor */
   const float w1 = 1.f / 9.f;  /* weighting factor */
   const float w2 = 1.f / 36.f; /* weighting factor */
+
+  grid.s0 = (float*)__builtin_assume_aligned(grid.s0, 64);
+  grid.s1 = (float*)__builtin_assume_aligned(grid.s1, 64);
+  grid.s2 = (float*)__builtin_assume_aligned(grid.s2, 64);
+  grid.s3 = (float*)__builtin_assume_aligned(grid.s3, 64);
+  grid.s4 = (float*)__builtin_assume_aligned(grid.s4, 64);
+  grid.s5 = (float*)__builtin_assume_aligned(grid.s5, 64);
+  grid.s6 = (float*)__builtin_assume_aligned(grid.s6, 64);
+  grid.s7 = (float*)__builtin_assume_aligned(grid.s7, 64);
+  grid.s8 = (float*)__builtin_assume_aligned(grid.s8, 64);
+
+  tmp_grid.s0 = (float*)__builtin_assume_aligned(tmp_grid.s0, 64);
+  tmp_grid.s1 = (float*)__builtin_assume_aligned(tmp_grid.s1, 64);
+  tmp_grid.s2 = (float*)__builtin_assume_aligned(tmp_grid.s2, 64);
+  tmp_grid.s3 = (float*)__builtin_assume_aligned(tmp_grid.s3, 64);
+  tmp_grid.s4 = (float*)__builtin_assume_aligned(tmp_grid.s4, 64);
+  tmp_grid.s5 = (float*)__builtin_assume_aligned(tmp_grid.s5, 64);
+  tmp_grid.s6 = (float*)__builtin_assume_aligned(tmp_grid.s6, 64);
+  tmp_grid.s7 = (float*)__builtin_assume_aligned(tmp_grid.s7, 64);
+  tmp_grid.s8 = (float*)__builtin_assume_aligned(tmp_grid.s8, 64);
+
+
 
 
   //t_speed* output = *output_ptr;
@@ -507,7 +529,7 @@ float fusion(const t_param params,  int* obstacles,soa* restrict grid_ptr,soa* r
     // for(int n=0; n<params.ny*params.nx; n++) {
     //   int ii = n/params.nx; int jj=n%params.nx;
     //#pragma omp parallel for collapse(2) reduction(+:tot_u,tot_cells)
-      //#pragma omp simd aligned(grid.s0:64)
+      //#pragma omp simd aligned(grid.s0:)
       for (int jj = 0; jj < params.ny; jj++)
       {
         for (int ii = 0; ii < params.nx; ii++)
