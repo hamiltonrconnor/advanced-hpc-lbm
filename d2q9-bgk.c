@@ -674,7 +674,7 @@ float fusion(const t_param params,  int* restrict  obstacles,soa* restrict grid_
                                        w2 *local_density *((2.f*c_sq*c_sq)+(2.f*c_sq*u[8])+(u[8]*u[8])-(u_sq*c_sq))/(2.f*c_sq*c_sq)
 
 
-         }
+         };
 
 
 
