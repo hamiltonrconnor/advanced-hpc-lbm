@@ -481,7 +481,7 @@ float av_velocity(const t_param params, int* obstacles,soa* grid_ptr)
 }
 
 
-float fusion(const t_param params,  int* obstacles,soa* restrict grid_ptr,soa* restrict tmp_grid_ptr)
+float fusion(const t_param params,  int* restrict  obstacles,soa* restrict grid_ptr,soa* restrict tmp_grid_ptr)
 {
 
    soa grid = *grid_ptr;
@@ -619,14 +619,10 @@ float fusion(const t_param params,  int* obstacles,soa* restrict grid_ptr,soa* r
       /* don't consider occupied cells */
       else
       {
-        //collision(params, output, tmp_cells,ii,jj);
-        //Cooment
+
         /* compute local density total */
 
-        float local_density = 0.f;
-
-
-        local_density = tmp_grid.s0[ii + jj*params.nx] + tmp_grid.s1[ii + jj*params.nx]
+        float local_density = tmp_grid.s0[ii + jj*params.nx] + tmp_grid.s1[ii + jj*params.nx]
                       + tmp_grid.s2[ii + jj*params.nx] + tmp_grid.s3[ii + jj*params.nx]
                       + tmp_grid.s4[ii + jj*params.nx] + tmp_grid.s5[ii + jj*params.nx]
                       + tmp_grid.s6[ii + jj*params.nx] + tmp_grid.s7[ii + jj*params.nx]
