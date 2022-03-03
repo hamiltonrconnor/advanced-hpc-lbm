@@ -617,7 +617,7 @@ float fusion(const t_param params,  int* restrict  obstacles,soa* restrict grid_
 
 
 
-        float t1 = (*tmp_grid_ptr).s1[ii + jj*params.nx];
+        const float t1 = (*tmp_grid_ptr).s1[ii + jj*params.nx];
         float t2 = (*tmp_grid_ptr).s2[ii + jj*params.nx];
         float t3 = (*tmp_grid_ptr).s3[ii + jj*params.nx];
         float t4 = (*tmp_grid_ptr).s4[ii + jj*params.nx];
