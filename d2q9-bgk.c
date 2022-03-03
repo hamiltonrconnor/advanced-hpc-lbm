@@ -530,12 +530,12 @@ float fusion(const t_param params,  int* restrict  obstacles,soa* restrict grid_
   __assume_aligned((*tmp_grid_ptr).s6,16);
   __assume_aligned((*tmp_grid_ptr).s7,16);
   __assume_aligned((*tmp_grid_ptr).s8,16);
-  __assume((params.nx)%2==0)
-  __assume((params.nx)%4==0)
-  __assume((params.nx)%8==0)
-  __assume((params.nx)%16==0)
-  __assume((params.nx)%32==0)
-  __assume((params.nx)%64==0)
+  __assume((params.nx)%2==0);
+  __assume((params.nx)%4==0);
+  __assume((params.nx)%8==0);
+  __assume((params.nx)%16==0);
+  __assume((params.nx)%32==0);
+  __assume((params.nx)%64==0);
 
 
 
