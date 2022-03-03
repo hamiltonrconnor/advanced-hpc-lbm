@@ -739,6 +739,7 @@ float fusion(const t_param params,  int* restrict  obstacles,soa* restrict grid_
       //
       //
       //
+      float av_local_density =1.0f;
        const float av_u_x = ((*tmp_grid_ptr).s1[ii + jj*params.nx]
                      + (*tmp_grid_ptr).s5[ii + jj*params.nx]
                      + (*tmp_grid_ptr).s8[ii + jj*params.nx]
