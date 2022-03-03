@@ -484,8 +484,8 @@ float av_velocity(const t_param params, int* obstacles,soa* grid_ptr)
 float fusion(const t_param params,  int* obstacles,soa* restrict grid_ptr,soa* restrict tmp_grid_ptr)
 {
 
-  soa grid = *grid_ptr;
-  soa tmp_grid = *tmp_grid_ptr;
+  const soa grid = *grid_ptr;
+  const soa tmp_grid = *tmp_grid_ptr;
   //CONSTS FROM COLLISION
   const float c_sq = 1.f / 3.f; /* square of speed of sound */
   const float w0 = 4.f / 9.f;  /* weighting factor */
