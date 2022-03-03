@@ -550,7 +550,7 @@ float fusion(const t_param params,  int* obstacles,soa* restrict grid_ptr,soa* r
     // for(int n=0; n<params.ny*params.nx; n++) {
     //   int ii = n/params.nx; int jj=n%params.nx;
     //#pragma omp parallel for collapse(2) reduction(+:tot_u,tot_cells)
-      //#pragma omp simd collapse(2)
+      #pragma omp simd collapse(2)
       for (int jj = 0; jj < params.ny; jj++)
       {
         for (int ii = 0; ii < params.nx; ii++)
@@ -665,7 +665,7 @@ float fusion(const t_param params,  int* obstacles,soa* restrict grid_ptr,soa* r
         u[8] =   u_x - u_y;  /* south-east */
 
         /* equilibrium densities */
-        float d_equ[NSPEEDS];
+        const float d_equ[NSPEEDS];
         /* zero velocity density: weight w0 */
         d_equ[0] = w0 * local_density
                    * (1.f - u_sq / (2.f * c_sq));
