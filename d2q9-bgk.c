@@ -678,7 +678,7 @@ float fusion(const t_param params,  int* restrict  obstacles,soa* restrict grid_
         const float u_sq = u_x * u_x + u_y * u_y;
 
         /* directional velocity components */
-        float t[NSPEEDS] ;
+        float u[NSPEEDS] ;
         u[1] =   u_x;        /* east */
         u[2] =         u_y;  /* north */
         u[3] = - u_x;        /* west */
