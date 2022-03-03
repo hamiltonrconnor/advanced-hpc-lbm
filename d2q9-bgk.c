@@ -511,6 +511,27 @@ float fusion(const t_param params,  int* obstacles,soa* restrict grid_ptr,soa* r
   // tmp_grid.s6 = (float*)__builtin_assume_aligned(tmp_grid.s6, 64);
   // tmp_grid.s7 = (float*)__builtin_assume_aligned(tmp_grid.s7, 64);
   // tmp_grid.s8 = (float*)__builtin_assume_aligned(tmp_grid.s8, 64);
+  __assume_aligned(grid.s0,64);
+  __assume_aligned(grid.s1,64);
+  __assume_aligned(grid.s2,64);
+  __assume_aligned(grid.s3,64);
+  __assume_aligned(grid.s4,64);
+  __assume_aligned(grid.s5,64);
+  __assume_aligned(grid.s6,64);
+  __assume_aligned(grid.s7,64);
+  __assume_aligned(grid.s8,64);
+
+  __assume_aligned(tmp_grid.s0,64);
+  __assume_aligned(tmp_grid.s1,64);
+  __assume_aligned(tmp_grid.s2,64);
+  __assume_aligned(tmp_grid.s3,64);
+  __assume_aligned(tmp_grid.s4,64);
+  __assume_aligned(tmp_grid.s5,64);
+  __assume_aligned(tmp_grid.s6,64);
+  __assume_aligned(tmp_grid.s7,64);
+  __assume_aligned(tmp_grid.s8,64);
+
+
 
 
 
@@ -529,7 +550,7 @@ float fusion(const t_param params,  int* obstacles,soa* restrict grid_ptr,soa* r
     // for(int n=0; n<params.ny*params.nx; n++) {
     //   int ii = n/params.nx; int jj=n%params.nx;
     //#pragma omp parallel for collapse(2) reduction(+:tot_u,tot_cells)
-      #pragma omp simd collapse(2)
+      //#pragma omp simd collapse(2)
       for (int jj = 0; jj < params.ny; jj++)
       {
         for (int ii = 0; ii < params.nx; ii++)
