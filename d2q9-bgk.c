@@ -568,15 +568,15 @@ float fusion(const t_param params,  int* restrict  obstacles,soa* restrict grid_
       ** appropriate directions of travel and writing into
       ** scratch space grid */
 
-      (*tmp_grid_ptr).s0[ii + jj*params.nx] = (*grid_ptr).s0[ii + jj*params.nx]; /* central cell, no movement */
-      (*tmp_grid_ptr).s1[ii + jj*params.nx] = (*grid_ptr).s1[x_w + jj*params.nx]; /* east */
-      (*tmp_grid_ptr).s2[ii + jj*params.nx] = (*grid_ptr).s2[ii + y_s*params.nx]; /* north */
-      (*tmp_grid_ptr).s3[ii + jj*params.nx] = (*grid_ptr).s3[x_e + jj*params.nx]; /* west */
-      (*tmp_grid_ptr).s4[ii + jj*params.nx] = (*grid_ptr).s4[ii + y_n*params.nx]; /* south */
-      (*tmp_grid_ptr).s5[ii + jj*params.nx] = (*grid_ptr).s5[x_w + y_s*params.nx]; /* north-east */
-      (*tmp_grid_ptr).s6[ii + jj*params.nx] = (*grid_ptr).s6[x_e + y_s*params.nx]; /* north-west */
-      (*tmp_grid_ptr).s7[ii + jj*params.nx] = (*grid_ptr).s7[x_e + y_n*params.nx]; /* south-west */
-      (*tmp_grid_ptr).s8[ii + jj*params.nx]= (*grid_ptr).s8[x_w + y_n*params.nx]; /* south-east */
+      tmp_grid.s0[ii + jj*params.nx] = grid.s0[ii + jj*params.nx]; /* central cell, no movement */
+      tmp_grid.s1[ii + jj*params.nx] = grid.s1[x_w + jj*params.nx]; /* east */
+      tmp_grid.s2[ii + jj*params.nx] = grid.s2[ii + y_s*params.nx]; /* north */
+      tmp_grid.s3[ii + jj*params.nx] = grid.s3[x_e + jj*params.nx]; /* west */
+      tmp_grid.s4[ii + jj*params.nx] = grid.s4[ii + y_n*params.nx]; /* south */
+      tmp_grid.s5[ii + jj*params.nx] = grid.s5[x_w + y_s*params.nx]; /* north-east */
+      tmp_grid.s6[ii + jj*params.nx] = grid.s6[x_e + y_s*params.nx]; /* north-west */
+      tmp_grid.s7[ii + jj*params.nx] = grid.s7[x_e + y_n*params.nx]; /* south-west */
+      tmp_grid.s8[ii + jj*params.nx]= grid.s8[x_w + y_n*params.nx]; /* south-east */
 
 
       //REBOUND
@@ -589,22 +589,22 @@ float fusion(const t_param params,  int* restrict  obstacles,soa* restrict grid_
 
 
 
-        float t1 = (*tmp_grid_ptr).s1[ii + jj*params.nx];
-        float t2 = (*tmp_grid_ptr).s2[ii + jj*params.nx];
-        float t3 = (*tmp_grid_ptr).s3[ii + jj*params.nx];
-        float t4 = (*tmp_grid_ptr).s4[ii + jj*params.nx];
-        float t5 = (*tmp_grid_ptr).s5[ii + jj*params.nx];
-        float t6 = (*tmp_grid_ptr).s6[ii + jj*params.nx];
-        float t7 = (*tmp_grid_ptr).s7[ii + jj*params.nx];
-        float t8 = (*tmp_grid_ptr).s8[ii + jj*params.nx];
-        (*tmp_grid_ptr).s1[ii + jj*params.nx] = t3;
-        (*tmp_grid_ptr).s2[ii + jj*params.nx] = t4;
-        (*tmp_grid_ptr).s3[ii + jj*params.nx] = t1;
-        (*tmp_grid_ptr).s4[ii + jj*params.nx] = t2;
-        (*tmp_grid_ptr).s5[ii + jj*params.nx] = t7;
-        (*tmp_grid_ptr).s6[ii + jj*params.nx] = t8;
-        (*tmp_grid_ptr).s7[ii + jj*params.nx] = t5;
-        (*tmp_grid_ptr).s8[ii + jj*params.nx] = t6;
+        float t1 = tmp_grid.s1[ii + jj*params.nx];
+        float t2 = tmp_grid.s2[ii + jj*params.nx];
+        float t3 = tmp_grid.s3[ii + jj*params.nx];
+        float t4 = tmp_grid.s4[ii + jj*params.nx];
+        float t5 = tmp_grid.s5[ii + jj*params.nx];
+        float t6 = tmp_grid.s6[ii + jj*params.nx];
+        float t7 = tmp_grid.s7[ii + jj*params.nx];
+        float t8 = tmp_grid.s8[ii + jj*params.nx];
+        tmp_grid.s1[ii + jj*params.nx] = t3;
+        tmp_grid.s2[ii + jj*params.nx] = t4;
+        tmp_grid.s3[ii + jj*params.nx] = t1;
+        tmp_grid.s4[ii + jj*params.nx] = t2;
+        tmp_grid.s5[ii + jj*params.nx] = t7;
+        tmp_grid.s6[ii + jj*params.nx] = t8;
+        tmp_grid.s7[ii + jj*params.nx] = t5;
+        tmp_grid.s8[ii + jj*params.nx] = t6;
 
 
 
@@ -622,28 +622,28 @@ float fusion(const t_param params,  int* restrict  obstacles,soa* restrict grid_
 
         /* compute local density total */
 
-        float local_density = (*tmp_grid_ptr).s0[ii + jj*params.nx] + (*tmp_grid_ptr).s1[ii + jj*params.nx]
-                      + (*tmp_grid_ptr).s2[ii + jj*params.nx] + (*tmp_grid_ptr).s3[ii + jj*params.nx]
-                      + (*tmp_grid_ptr).s4[ii + jj*params.nx] + (*tmp_grid_ptr).s5[ii + jj*params.nx]
-                      + (*tmp_grid_ptr).s6[ii + jj*params.nx] + (*tmp_grid_ptr).s7[ii + jj*params.nx]
-                      + (*tmp_grid_ptr).s8[ii + jj*params.nx];
+        float local_density = tmp_grid.s0[ii + jj*params.nx] + tmp_grid.s1[ii + jj*params.nx]
+                      + tmp_grid.s2[ii + jj*params.nx] + tmp_grid.s3[ii + jj*params.nx]
+                      + tmp_grid.s4[ii + jj*params.nx] + tmp_grid.s5[ii + jj*params.nx]
+                      + tmp_grid.s6[ii + jj*params.nx] + tmp_grid.s7[ii + jj*params.nx]
+                      + tmp_grid.s8[ii + jj*params.nx];
 
 
        /* compute x velocity component */
-       const float u_x = ((*tmp_grid_ptr).s1[ii + jj*params.nx]
-                     + (*tmp_grid_ptr).s5[ii + jj*params.nx]
-                     + (*tmp_grid_ptr).s8[ii + jj*params.nx]
-                     - ((*tmp_grid_ptr).s3[ii + jj*params.nx]
-                        + (*tmp_grid_ptr).s6[ii + jj*params.nx]
-                        + (*tmp_grid_ptr).s7[ii + jj*params.nx]))
+       const float u_x = (tmp_grid.s1[ii + jj*params.nx]
+                     + tmp_grid.s5[ii + jj*params.nx]
+                     + tmp_grid.s8[ii + jj*params.nx]
+                     - (tmp_grid.s3[ii + jj*params.nx]
+                        + tmp_grid.s6[ii + jj*params.nx]
+                        + tmp_grid.s7[ii + jj*params.nx]))
                     / local_density;
        /* compute y velocity component */
-       const float u_y = ((*tmp_grid_ptr).s2[ii + jj*params.nx]
-                     + (*tmp_grid_ptr).s5[ii + jj*params.nx]
-                     + (*tmp_grid_ptr).s6[ii + jj*params.nx]
-                     - ((*tmp_grid_ptr).s4[ii + jj*params.nx]
-                        + (*tmp_grid_ptr).s7[ii + jj*params.nx]
-                        + (*tmp_grid_ptr).s8[ii + jj*params.nx]))
+       const float u_y = (tmp_grid.s2[ii + jj*params.nx]
+                     + tmp_grid.s5[ii + jj*params.nx]
+                     + tmp_grid.s6[ii + jj*params.nx]
+                     - (tmp_grid.s4[ii + jj*params.nx]
+                        + tmp_grid.s7[ii + jj*params.nx]
+                        + tmp_grid.s8[ii + jj*params.nx]))
                     / local_density;
 
         /* velocity squared */
@@ -687,67 +687,67 @@ float fusion(const t_param params,  int* restrict  obstacles,soa* restrict grid_
         float av_local_density = 0.f;
         /* relaxation step */
 
-        float outVal = (*tmp_grid_ptr).s0[ii + jj*params.nx]
-                        + params.omega * (d_equ[0] - (*tmp_grid_ptr).s0[ii + jj*params.nx]);
-        (*tmp_grid_ptr).s0[ii + jj*params.nx] = outVal;
+        float outVal = tmp_grid.s0[ii + jj*params.nx]
+                        + params.omega * (d_equ[0] - tmp_grid.s0[ii + jj*params.nx]);
+        tmp_grid.s0[ii + jj*params.nx] = outVal;
         av_local_density += outVal;
 
-        outVal = (*tmp_grid_ptr).s1[ii + jj*params.nx]
-                        + params.omega * (d_equ[1] - (*tmp_grid_ptr).s1[ii + jj*params.nx]);
-        (*tmp_grid_ptr).s1[ii + jj*params.nx] = outVal;
+        outVal = tmp_grid.s1[ii + jj*params.nx]
+                        + params.omega * (d_equ[1] - tmp_grid.s1[ii + jj*params.nx]);
+        tmp_grid.s1[ii + jj*params.nx] = outVal;
         av_local_density += outVal;
 
-        outVal = (*tmp_grid_ptr).s2[ii + jj*params.nx]
-                        + params.omega * (d_equ[2] - (*tmp_grid_ptr).s2[ii + jj*params.nx]);
-        (*tmp_grid_ptr).s2[ii + jj*params.nx] = outVal;
+        outVal = tmp_grid.s2[ii + jj*params.nx]
+                        + params.omega * (d_equ[2] - tmp_grid.s2[ii + jj*params.nx]);
+        tmp_grid.s2[ii + jj*params.nx] = outVal;
         av_local_density += outVal;
 
-        outVal = (*tmp_grid_ptr).s3[ii + jj*params.nx]
-                        + params.omega * (d_equ[3] - (*tmp_grid_ptr).s3[ii + jj*params.nx]);
-        (*tmp_grid_ptr).s3[ii + jj*params.nx] = outVal;
+        outVal = tmp_grid.s3[ii + jj*params.nx]
+                        + params.omega * (d_equ[3] - tmp_grid.s3[ii + jj*params.nx]);
+        tmp_grid.s3[ii + jj*params.nx] = outVal;
         av_local_density += outVal;
 
-        outVal = (*tmp_grid_ptr).s4[ii + jj*params.nx]
-                        + params.omega * (d_equ[4] - (*tmp_grid_ptr).s4[ii + jj*params.nx]);
-        (*tmp_grid_ptr).s4[ii + jj*params.nx] = outVal;
+        outVal = tmp_grid.s4[ii + jj*params.nx]
+                        + params.omega * (d_equ[4] - tmp_grid.s4[ii + jj*params.nx]);
+        tmp_grid.s4[ii + jj*params.nx] = outVal;
         av_local_density += outVal;
 
-        outVal = (*tmp_grid_ptr).s5[ii + jj*params.nx]
-                        + params.omega * (d_equ[5] - (*tmp_grid_ptr).s5[ii + jj*params.nx]);
-        (*tmp_grid_ptr).s5[ii + jj*params.nx] = outVal;
+        outVal = tmp_grid.s5[ii + jj*params.nx]
+                        + params.omega * (d_equ[5] - tmp_grid.s5[ii + jj*params.nx]);
+        tmp_grid.s5[ii + jj*params.nx] = outVal;
         av_local_density += outVal;
 
-        outVal = (*tmp_grid_ptr).s6[ii + jj*params.nx]
-                        + params.omega * (d_equ[6] - (*tmp_grid_ptr).s6[ii + jj*params.nx]);
-        (*tmp_grid_ptr).s6[ii + jj*params.nx] = outVal;
+        outVal = tmp_grid.s6[ii + jj*params.nx]
+                        + params.omega * (d_equ[6] - tmp_grid.s6[ii + jj*params.nx]);
+        tmp_grid.s6[ii + jj*params.nx] = outVal;
         av_local_density += outVal;
 
-        outVal = (*tmp_grid_ptr).s7[ii + jj*params.nx]
-                        + params.omega * (d_equ[7] - (*tmp_grid_ptr).s7[ii + jj*params.nx]);
-        (*tmp_grid_ptr).s7[ii + jj*params.nx] = outVal;
+        outVal = tmp_grid.s7[ii + jj*params.nx]
+                        + params.omega * (d_equ[7] - tmp_grid.s7[ii + jj*params.nx]);
+        tmp_grid.s7[ii + jj*params.nx] = outVal;
         av_local_density += outVal;
 
-        outVal = (*tmp_grid_ptr).s8[ii + jj*params.nx]
-                        + params.omega * (d_equ[8] - (*tmp_grid_ptr).s8[ii + jj*params.nx]);
-        (*tmp_grid_ptr).s8[ii + jj*params.nx] = outVal;
+        outVal = tmp_grid.s8[ii + jj*params.nx]
+                        + params.omega * (d_equ[8] - tmp_grid.s8[ii + jj*params.nx]);
+        tmp_grid.s8[ii + jj*params.nx] = outVal;
         av_local_density += outVal;
 
 
 
-       float av_u_x = ((*tmp_grid_ptr).s1[ii + jj*params.nx]
-                     + (*tmp_grid_ptr).s5[ii + jj*params.nx]
-                     + (*tmp_grid_ptr).s8[ii + jj*params.nx]
-                     - ((*tmp_grid_ptr).s3[ii + jj*params.nx]
-                        + (*tmp_grid_ptr).s6[ii + jj*params.nx]
-                        + (*tmp_grid_ptr).s7[ii + jj*params.nx]))
+       float av_u_x = (tmp_grid.s1[ii + jj*params.nx]
+                     + tmp_grid.s5[ii + jj*params.nx]
+                     + tmp_grid.s8[ii + jj*params.nx]
+                     - (tmp_grid.s3[ii + jj*params.nx]
+                        + tmp_grid.s6[ii + jj*params.nx]
+                        + tmp_grid.s7[ii + jj*params.nx]))
                     / av_local_density;
        /* compute y velocity component */
-       float av_u_y = ((*tmp_grid_ptr).s2[ii + jj*params.nx]
-                     + (*tmp_grid_ptr).s5[ii + jj*params.nx]
-                     + (*tmp_grid_ptr).s6[ii + jj*params.nx]
-                     - ((*tmp_grid_ptr).s4[ii + jj*params.nx]
-                        + (*tmp_grid_ptr).s7[ii + jj*params.nx]
-                        + (*tmp_grid_ptr).s8[ii + jj*params.nx]))
+       float av_u_y = (tmp_grid.s2[ii + jj*params.nx]
+                     + tmp_grid.s5[ii + jj*params.nx]
+                     + tmp_grid.s6[ii + jj*params.nx]
+                     - (tmp_grid.s4[ii + jj*params.nx]
+                        + tmp_grid.s7[ii + jj*params.nx]
+                        + tmp_grid.s8[ii + jj*params.nx]))
                     / av_local_density;
 
 
