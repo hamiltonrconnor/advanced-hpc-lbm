@@ -480,7 +480,7 @@ float av_velocity(const t_param params, int* obstacles,soa* grid_ptr)
   return tot_u / (float)tot_cells;
 }
 
-
+#pragma ivdep
 float fusion(const t_param params,  int* restrict  obstacles,soa* restrict grid_ptr,soa* restrict tmp_grid_ptr)
 {
 
@@ -551,6 +551,7 @@ float fusion(const t_param params,  int* restrict  obstacles,soa* restrict grid_
     //   int ii = n/params.nx; int jj=n%params.nx;
     //#pragma omp parallel for collapse(2) reduction(+:tot_u,tot_cells)
       //#pragma omp simd collapse(2)
+
       for (int jj = 0; jj < params.ny; jj++)
       {
         for (int ii = 0; ii < params.nx; ii++)
@@ -666,7 +667,7 @@ float fusion(const t_param params,  int* restrict  obstacles,soa* restrict grid_
             d_equ[i] = 1.0f;
           }
 
-      
+
       //   /* zero velocity density: weight w0 */
       //   d_equ[0] = w0 * local_density
       //              * (1.f - u_sq / (2.f * c_sq));
