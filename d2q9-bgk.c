@@ -111,7 +111,7 @@ int initialise(const char* paramfile, const char* obstaclefile,
 ** accelerate_flow(), propagate(), rebound() & collision()
 */
 //float fusion(const t_param params, t_speed** cells_ptr, t_speed** tmp_cells_ptr, int* obstacles);
-float fusion(const t_param params,  int* obstacles,soa* grid_ptr,soa* tmp_grid_ptr);
+float fusion(const t_param params,  int* obstacles,soa* restrict grid_ptr,soa* restrict tmp_grid_ptr);
 
 //float fusion(const t_param params, t_speed** cells_ptr, t_speed** tmp_cells_ptr, int* obstacles,soa* grid_ptr,soa* tmp_grid_ptr);
 float timestep(const t_param params,  int* obstacles,soa* grid_ptr,soa*tmp_grid_ptr);
@@ -481,7 +481,7 @@ float av_velocity(const t_param params, int* obstacles,soa* grid_ptr)
 }
 
 
-float fusion(const t_param params,  int* obstacles,soa* grid_ptr,soa* tmp_grid_ptr)
+float fusion(const t_param params,  int* obstacles,soa* restrict grid_ptr,soa* restrict tmp_grid_ptr)
 {
 
   soa grid = *grid_ptr;
@@ -805,26 +805,26 @@ int initialise(const char* paramfile, const char* obstaclefile,
   */
 
 
-  (*grid_ptr).s0 = (float*)malloc(sizeof(float) * (params->ny * params->nx));
-  (*grid_ptr).s1 = (float*)malloc(sizeof(float) * (params->ny * params->nx));
-  (*grid_ptr).s2 = (float*)malloc(sizeof(float) * (params->ny * params->nx));
-  (*grid_ptr).s3 = (float*)malloc(sizeof(float) * (params->ny * params->nx));
-  (*grid_ptr).s4 = (float*)malloc(sizeof(float) * (params->ny * params->nx));
-  (*grid_ptr).s5 = (float*)malloc(sizeof(float) * (params->ny * params->nx));
-  (*grid_ptr).s6 = (float*)malloc(sizeof(float) * (params->ny * params->nx));
-  (*grid_ptr).s7 = (float*)malloc(sizeof(float) * (params->ny * params->nx));
-  (*grid_ptr).s8 = (float*)malloc(sizeof(float) * (params->ny * params->nx));
+  (*grid_ptr).s0 = (float*)aligned_alloc(64,sizeof(float) * (params->ny * params->nx));
+  (*grid_ptr).s1 = (float*)aligned_alloc(64,sizeof(float) * (params->ny * params->nx));
+  (*grid_ptr).s2 = (float*)aligned_alloc(64,sizeof(float) * (params->ny * params->nx));
+  (*grid_ptr).s3 = (float*)aligned_alloc(64,sizeof(float) * (params->ny * params->nx));
+  (*grid_ptr).s4 = (float*)aligned_alloc(64,sizeof(float) * (params->ny * params->nx));
+  (*grid_ptr).s5 = (float*)aligned_alloc(64,sizeof(float) * (params->ny * params->nx));
+  (*grid_ptr).s6 = (float*)aligned_alloc(64,sizeof(float) * (params->ny * params->nx));
+  (*grid_ptr).s7 = (float*)aligned_alloc(64,sizeof(float) * (params->ny * params->nx));
+  (*grid_ptr).s8 = (float*)aligned_alloc(64,sizeof(float) * (params->ny * params->nx));
   // soa tmp_grid;
   // tmp_grid_ptr = &tmp_grid;
-  (*tmp_grid_ptr).s0 = (float*)malloc(sizeof(float) * (params->ny * params->nx));
-  (*tmp_grid_ptr).s1 = (float*)malloc(sizeof(float) * (params->ny * params->nx));
-  (*tmp_grid_ptr).s2 = (float*)malloc(sizeof(float) * (params->ny * params->nx));
-  (*tmp_grid_ptr).s3 = (float*)malloc(sizeof(float) * (params->ny * params->nx));
-  (*tmp_grid_ptr).s4 = (float*)malloc(sizeof(float) * (params->ny * params->nx));
-  (*tmp_grid_ptr).s5 = (float*)malloc(sizeof(float) * (params->ny * params->nx));
-  (*tmp_grid_ptr).s6 = (float*)malloc(sizeof(float) * (params->ny * params->nx));
-  (*tmp_grid_ptr).s7 = (float*)malloc(sizeof(float) * (params->ny * params->nx));
-  (*tmp_grid_ptr).s8 = (float*)malloc(sizeof(float) * (params->ny * params->nx));
+  (*tmp_grid_ptr).s0 = (float*)aligned_alloc(64,sizeof(float) * (params->ny * params->nx));
+  (*tmp_grid_ptr).s1 = (float*)aligned_alloc(64,sizeof(float) * (params->ny * params->nx));
+  (*tmp_grid_ptr).s2 = (float*)aligned_alloc(64,sizeof(float) * (params->ny * params->nx));
+  (*tmp_grid_ptr).s3 = (float*)aligned_alloc(64,sizeof(float) * (params->ny * params->nx));
+  (*tmp_grid_ptr).s4 = (float*)aligned_alloc(64,sizeof(float) * (params->ny * params->nx));
+  (*tmp_grid_ptr).s5 = (float*)aligned_alloc(64,sizeof(float) * (params->ny * params->nx));
+  (*tmp_grid_ptr).s6 = (float*)aligned_alloc(64,sizeof(float) * (params->ny * params->nx));
+  (*tmp_grid_ptr).s7 = (float*)aligned_alloc(64,sizeof(float) * (params->ny * params->nx));
+  (*tmp_grid_ptr).s8 = (float*)aligned_alloc(64,sizeof(float) * (params->ny * params->nx));
 
   /* initialise densities */
   float w0 = params->density * 4.f / 9.f;
