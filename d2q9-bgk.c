@@ -556,6 +556,25 @@ float fusion(const t_param params,  int* restrict  obstacles,soa* restrict grid_
       {
         for (int ii = 0; ii < params.nx; ii++)
         {
+          __assume_aligned((*grid_ptr).s0,16);
+          __assume_aligned((*grid_ptr).s1,16);
+          __assume_aligned((*grid_ptr).s2,16);
+          __assume_aligned((*grid_ptr).s3,16);
+          __assume_aligned((*grid_ptr).s4,16);
+          __assume_aligned((*grid_ptr).s5,16);
+          __assume_aligned((*grid_ptr).s6,16);
+          __assume_aligned((*grid_ptr).s7,16);
+          __assume_aligned((*grid_ptr).s8,16);
+
+          __assume_aligned((*tmp_grid_ptr).s0,16);
+          __assume_aligned((*tmp_grid_ptr).s1,16);
+          __assume_aligned((*tmp_grid_ptr).s2,16);
+          __assume_aligned((*tmp_grid_ptr).s3,16);
+          __assume_aligned((*tmp_grid_ptr).s4,16);
+          __assume_aligned((*tmp_grid_ptr).s5,16);
+          __assume_aligned((*tmp_grid_ptr).s6,16);
+          __assume_aligned((*tmp_grid_ptr).s7,16);
+          __assume_aligned((*tmp_grid_ptr).s8,16);
       //printf("%d\n",omp_get_num_threads());
       //propagate(params,cells,tmp_cells,ii,jj);
       //PROPAGATE
