@@ -78,7 +78,7 @@ typedef struct
   float speeds[NSPEEDS];
 } t_speed;
 
-struct soa
+typedef struct
 {
   float* s0;
   float* s1;
@@ -89,7 +89,7 @@ struct soa
   float* s6;
   float* s7;
   float* s8;
-}  __attribute__((aligned(16)));
+}  soa __attribute__((aligned(16)));
 
 
 /*
