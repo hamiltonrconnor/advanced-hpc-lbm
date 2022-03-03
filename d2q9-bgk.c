@@ -698,53 +698,25 @@ float fusion(const t_param params,  int* restrict  obstacles,soa* restrict grid_
       //
       //
       //   /* local density total */
-        float av_local_density = 0.f;
+
         /* relaxation step */
 
-        float outVal = (*tmp_grid_ptr).s0[ii + jj*params.nx]
-                        + params.omega * (d_equ[0] - (*tmp_grid_ptr).s0[ii + jj*params.nx]);
-        (*tmp_grid_ptr).s0[ii + jj*params.nx] = outVal;
-        av_local_density += outVal;
+        (*tmp_grid_ptr).s0[ii + jj*params.nx] = (*tmp_grid_ptr).s0[ii + jj*params.nx] + params.omega * (d_equ[0] - (*tmp_grid_ptr).s0[ii + jj*params.nx]);
+        (*tmp_grid_ptr).s1[ii + jj*params.nx] = (*tmp_grid_ptr).s1[ii + jj*params.nx] + params.omega * (d_equ[1] - (*tmp_grid_ptr).s1[ii + jj*params.nx]);
+        (*tmp_grid_ptr).s2[ii + jj*params.nx] = (*tmp_grid_ptr).s2[ii + jj*params.nx] + params.omega * (d_equ[2] - (*tmp_grid_ptr).s2[ii + jj*params.nx]);
+        (*tmp_grid_ptr).s3[ii + jj*params.nx] = (*tmp_grid_ptr).s3[ii + jj*params.nx] + params.omega * (d_equ[3] - (*tmp_grid_ptr).s3[ii + jj*params.nx]);
+        (*tmp_grid_ptr).s4[ii + jj*params.nx] = (*tmp_grid_ptr).s4[ii + jj*params.nx] + params.omega * (d_equ[4] - (*tmp_grid_ptr).s4[ii + jj*params.nx]);
+        (*tmp_grid_ptr).s5[ii + jj*params.nx] = (*tmp_grid_ptr).s5[ii + jj*params.nx] + params.omega * (d_equ[5] - (*tmp_grid_ptr).s5[ii + jj*params.nx]);
+        (*tmp_grid_ptr).s6[ii + jj*params.nx] = (*tmp_grid_ptr).s6[ii + jj*params.nx] + params.omega * (d_equ[6] - (*tmp_grid_ptr).s6[ii + jj*params.nx]);
+        (*tmp_grid_ptr).s7[ii + jj*params.nx] = (*tmp_grid_ptr).s7[ii + jj*params.nx] + params.omega * (d_equ[7] - (*tmp_grid_ptr).s7[ii + jj*params.nx]);
+        (*tmp_grid_ptr).s8[ii + jj*params.nx] = (*tmp_grid_ptr).s8[ii + jj*params.nx] + params.omega * (d_equ[8] - (*tmp_grid_ptr).s8[ii + jj*params.nx]);
 
-        outVal = (*tmp_grid_ptr).s1[ii + jj*params.nx]
-                        + params.omega * (d_equ[1] - (*tmp_grid_ptr).s1[ii + jj*params.nx]);
-        (*tmp_grid_ptr).s1[ii + jj*params.nx] = outVal;
-        av_local_density += outVal;
+        float av_local_density  = (*tmp_grid_ptr).s0[ii + jj*params.nx] +(*tmp_grid_ptr).s1[ii + jj*params.nx]
+                                + (*tmp_grid_ptr).s2[ii + jj*params.nx] +(*tmp_grid_ptr).s3[ii + jj*params.nx]
+                                + (*tmp_grid_ptr).s4[ii + jj*params.nx] +(*tmp_grid_ptr).s5[ii + jj*params.nx]
+                                + (*tmp_grid_ptr).s6[ii + jj*params.nx] +(*tmp_grid_ptr).s7[ii + jj*params.nx]
+                                + (*tmp_grid_ptr).s8[ii + jj*params.nx];
 
-        outVal = (*tmp_grid_ptr).s2[ii + jj*params.nx]
-                        + params.omega * (d_equ[2] - (*tmp_grid_ptr).s2[ii + jj*params.nx]);
-        (*tmp_grid_ptr).s2[ii + jj*params.nx] = outVal;
-        av_local_density += outVal;
-
-        outVal = (*tmp_grid_ptr).s3[ii + jj*params.nx]
-                        + params.omega * (d_equ[3] - (*tmp_grid_ptr).s3[ii + jj*params.nx]);
-        (*tmp_grid_ptr).s3[ii + jj*params.nx] = outVal;
-        av_local_density += outVal;
-
-        outVal = (*tmp_grid_ptr).s4[ii + jj*params.nx]
-                        + params.omega * (d_equ[4] - (*tmp_grid_ptr).s4[ii + jj*params.nx]);
-        (*tmp_grid_ptr).s4[ii + jj*params.nx] = outVal;
-        av_local_density += outVal;
-
-        outVal = (*tmp_grid_ptr).s5[ii + jj*params.nx]
-                        + params.omega * (d_equ[5] - (*tmp_grid_ptr).s5[ii + jj*params.nx]);
-        (*tmp_grid_ptr).s5[ii + jj*params.nx] = outVal;
-        av_local_density += outVal;
-
-        outVal = (*tmp_grid_ptr).s6[ii + jj*params.nx]
-                        + params.omega * (d_equ[6] - (*tmp_grid_ptr).s6[ii + jj*params.nx]);
-        (*tmp_grid_ptr).s6[ii + jj*params.nx] = outVal;
-        av_local_density += outVal;
-
-        outVal = (*tmp_grid_ptr).s7[ii + jj*params.nx]
-                        + params.omega * (d_equ[7] - (*tmp_grid_ptr).s7[ii + jj*params.nx]);
-        (*tmp_grid_ptr).s7[ii + jj*params.nx] = outVal;
-        av_local_density += outVal;
-
-        outVal = (*tmp_grid_ptr).s8[ii + jj*params.nx]
-                        + params.omega * (d_equ[8] - (*tmp_grid_ptr).s8[ii + jj*params.nx]);
-        (*tmp_grid_ptr).s8[ii + jj*params.nx] = outVal;
-        av_local_density += outVal;
 
 
 
