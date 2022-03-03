@@ -763,7 +763,8 @@ float fusion(const t_param params,  int* restrict  obstacles,soa* restrict grid_
       //   ++tot_cells;
       //
       //
-      // }}
+      // }
+    }
     }
 
 
