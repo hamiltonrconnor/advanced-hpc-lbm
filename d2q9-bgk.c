@@ -662,7 +662,7 @@ float fusion(const t_param params,  int* restrict  obstacles,soa* restrict grid_
         u[8] =   u_x - u_y;  /* south-east */
 
         /* equilibrium densities */
-         float d_equ[NSPEEDS];
+         //float d_equ[NSPEEDS];
          const float d_equ[NSPEEDS] = {w0 * local_density * (1.f - u_sq / (2.f * c_sq)),
                                        w1 *local_density *((2.f*c_sq*c_sq)+(2.f*c_sq*u[1])+(u[1]*u[1])-(u_sq*c_sq))/(2.f*c_sq*c_sq),
                                        w1 *local_density *((2.f*c_sq*c_sq)+(2.f*c_sq*u[2])+(u[2]*u[2])-(u_sq*c_sq))/(2.f*c_sq*c_sq),
