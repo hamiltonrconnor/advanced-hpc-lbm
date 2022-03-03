@@ -670,15 +670,17 @@ float fusion(const t_param params,  int* restrict  obstacles,soa* restrict grid_
         // (1.f + (u[1] / c_sq )+ ((u[1] * u[1]) / (2.f * c_sq * c_sq)) - (u_sq / (2.f * c_sq)));
 
         //printf("%f\n",w1 *local_density *((2.f*c_sq*c_sq)+(2.f*c_sq*u[1])+(u[1]*u[1])-(u_sq*c_sq))/(2.f*c_sq*c_sq));
-        d_equ[1] = w1 *local_density *((2.f*c_sq*c_sq)+(2.f*c_sq*u[1])+(u[1]*u[1])-(u_sq*c_sq))/(2.f*c_sq*c_sq);
+        for(int i = 1;i<9;i++){
+          d_equ[i] = w1 *local_density *((2.f*c_sq*c_sq)+(2.f*c_sq*u[i])+(u[i]*u[i])-(u_sq*c_sq))/(2.f*c_sq*c_sq);
+        }
 
-        d_equ[2] = w1 *local_density *((2.f*c_sq*c_sq)+(2.f*c_sq*u[2])+(u[2]*u[2])-(u_sq*c_sq))/(2.f*c_sq*c_sq);
-        d_equ[3] = w1 *local_density *((2.f*c_sq*c_sq)+(2.f*c_sq*u[3])+(u[3]*u[3])-(u_sq*c_sq))/(2.f*c_sq*c_sq);
-        d_equ[4] = w1 *local_density *((2.f*c_sq*c_sq)+(2.f*c_sq*u[4])+(u[4]*u[4])-(u_sq*c_sq))/(2.f*c_sq*c_sq);
-        d_equ[5] = w2 *local_density *((2.f*c_sq*c_sq)+(2.f*c_sq*u[5])+(u[5]*u[5])-(u_sq*c_sq))/(2.f*c_sq*c_sq);
-        d_equ[6] = w2 *local_density *((2.f*c_sq*c_sq)+(2.f*c_sq*u[6])+(u[6]*u[6])-(u_sq*c_sq))/(2.f*c_sq*c_sq);
-        d_equ[7] = w2 *local_density *((2.f*c_sq*c_sq)+(2.f*c_sq*u[7])+(u[7]*u[7])-(u_sq*c_sq))/(2.f*c_sq*c_sq);
-        d_equ[8] = w2 *local_density *((2.f*c_sq*c_sq)+(2.f*c_sq*u[8])+(u[8]*u[8])-(u_sq*c_sq))/(2.f*c_sq*c_sq);
+        // d_equ[2] = w1 *local_density *((2.f*c_sq*c_sq)+(2.f*c_sq*u[2])+(u[2]*u[2])-(u_sq*c_sq))/(2.f*c_sq*c_sq);
+        // d_equ[3] = w1 *local_density *((2.f*c_sq*c_sq)+(2.f*c_sq*u[3])+(u[3]*u[3])-(u_sq*c_sq))/(2.f*c_sq*c_sq);
+        // d_equ[4] = w1 *local_density *((2.f*c_sq*c_sq)+(2.f*c_sq*u[4])+(u[4]*u[4])-(u_sq*c_sq))/(2.f*c_sq*c_sq);
+        // d_equ[5] = w2 *local_density *((2.f*c_sq*c_sq)+(2.f*c_sq*u[5])+(u[5]*u[5])-(u_sq*c_sq))/(2.f*c_sq*c_sq);
+        // d_equ[6] = w2 *local_density *((2.f*c_sq*c_sq)+(2.f*c_sq*u[6])+(u[6]*u[6])-(u_sq*c_sq))/(2.f*c_sq*c_sq);
+        // d_equ[7] = w2 *local_density *((2.f*c_sq*c_sq)+(2.f*c_sq*u[7])+(u[7]*u[7])-(u_sq*c_sq))/(2.f*c_sq*c_sq);
+        // d_equ[8] = w2 *local_density *((2.f*c_sq*c_sq)+(2.f*c_sq*u[8])+(u[8]*u[8])-(u_sq*c_sq))/(2.f*c_sq*c_sq);
 
 
         /* local density total */
