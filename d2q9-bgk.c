@@ -1,4 +1,4 @@
-/*
+(*grid_ptr)/*
 ** Code to implement a d2q9-bgk lattice boltzmann scheme.
 ** 'd2' inidates a 2-dimensional grid, and
 ** 'q9' indicates 9 velocities per grid cell.
@@ -511,25 +511,25 @@ float fusion(const t_param params,  int* restrict  obstacles,soa* restrict grid_
   // tmp_grid.s6 = (float*)__builtin_assume_aligned(tmp_grid.s6, 64);
   // tmp_grid.s7 = (float*)__builtin_assume_aligned(tmp_grid.s7, 64);
   // tmp_grid.s8 = (float*)__builtin_assume_aligned(tmp_grid.s8, 64);
-  // __assume_aligned(grid.s0,64);
-  // __assume_aligned(grid.s1,64);
-  // __assume_aligned(grid.s2,64);
-  // __assume_aligned(grid.s3,64);
-  // __assume_aligned(grid.s4,64);
-  // __assume_aligned(grid.s5,64);
-  // __assume_aligned(grid.s6,64);
-  // __assume_aligned(grid.s7,64);
-  // __assume_aligned(grid.s8,64);
-  //
-  // __assume_aligned(tmp_grid.s0,64);
-  // __assume_aligned(tmp_grid.s1,64);
-  // __assume_aligned(tmp_grid.s2,64);
-  // __assume_aligned(tmp_grid.s3,64);
-  // __assume_aligned(tmp_grid.s4,64);
-  // __assume_aligned(tmp_grid.s5,64);
-  // __assume_aligned(tmp_grid.s6,64);
-  // __assume_aligned(tmp_grid.s7,64);
-  // __assume_aligned(tmp_grid.s8,64);
+  __assume_aligned((*grid_ptr).s0,64);
+  __assume_aligned((*grid_ptr).s1,64);
+  __assume_aligned((*grid_ptr).s2,64);
+  __assume_aligned((*grid_ptr).s3,64);
+  __assume_aligned((*grid_ptr).s4,64);
+  __assume_aligned((*grid_ptr).s5,64);
+  __assume_aligned((*grid_ptr).s6,64);
+  __assume_aligned((*grid_ptr).s7,64);
+  __assume_aligned((*grid_ptr).s8,64);
+
+  __assume_aligned((*tmp_grid_ptr).s0,64);
+  __assume_aligned((*tmp_grid_ptr).s1,64);
+  __assume_aligned((*tmp_grid_ptr).s2,64);
+  __assume_aligned((*tmp_grid_ptr).s3,64);
+  __assume_aligned((*tmp_grid_ptr).s4,64);
+  __assume_aligned((*tmp_grid_ptr).s5,64);
+  __assume_aligned((*tmp_grid_ptr).s6,64);
+  __assume_aligned((*tmp_grid_ptr).s7,64);
+  __assume_aligned((*tmp_grid_ptr).s8,64);
 
 
 
