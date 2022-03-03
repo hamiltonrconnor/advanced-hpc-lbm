@@ -2,10 +2,10 @@
 
 EXE=d2q9-bgk
 
-CC=gcc
+CC=icc
 
-CFLAGS= -fopenmp  -fopenmp-simd -std=c99 -Wall -Ofast -mtune=native -fopt-info-vec-missed
-LIBS = -lm
+CFLAGS=  -fopenmp  -fopenmp-simd -std=c99 -Wall -Ofast -mtune=native -fopt-info-vec-missed
+LIBS = 
 
 FINAL_STATE_FILE=./final_state.dat
 AV_VELS_FILE=./av_vels.dat
