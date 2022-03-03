@@ -622,7 +622,7 @@ float fusion(const t_param params,  int* restrict  obstacles,soa* restrict grid_
 
         /* compute local density total */
 
-        float local_density = (*tmp_grid_ptr).s0[ii + jj*params.nx] + (*tmp_grid_ptr).s1[ii + jj*params.nx]
+        const float local_density = (*tmp_grid_ptr).s0[ii + jj*params.nx] + (*tmp_grid_ptr).s1[ii + jj*params.nx]
                       + (*tmp_grid_ptr).s2[ii + jj*params.nx] + (*tmp_grid_ptr).s3[ii + jj*params.nx]
                       + (*tmp_grid_ptr).s4[ii + jj*params.nx] + (*tmp_grid_ptr).s5[ii + jj*params.nx]
                       + (*tmp_grid_ptr).s6[ii + jj*params.nx] + (*tmp_grid_ptr).s7[ii + jj*params.nx]
@@ -739,7 +739,7 @@ float fusion(const t_param params,  int* restrict  obstacles,soa* restrict grid_
 
 
 
-       float av_u_x = ((*tmp_grid_ptr).s1[ii + jj*params.nx]
+       const float av_u_x = ((*tmp_grid_ptr).s1[ii + jj*params.nx]
                      + (*tmp_grid_ptr).s5[ii + jj*params.nx]
                      + (*tmp_grid_ptr).s8[ii + jj*params.nx]
                      - ((*tmp_grid_ptr).s3[ii + jj*params.nx]
@@ -747,7 +747,7 @@ float fusion(const t_param params,  int* restrict  obstacles,soa* restrict grid_
                         + (*tmp_grid_ptr).s7[ii + jj*params.nx]))
                     / av_local_density;
        /* compute y velocity component */
-       float av_u_y = ((*tmp_grid_ptr).s2[ii + jj*params.nx]
+       const float av_u_y = ((*tmp_grid_ptr).s2[ii + jj*params.nx]
                      + (*tmp_grid_ptr).s5[ii + jj*params.nx]
                      + (*tmp_grid_ptr).s6[ii + jj*params.nx]
                      - ((*tmp_grid_ptr).s4[ii + jj*params.nx]
