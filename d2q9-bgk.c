@@ -89,7 +89,7 @@ typedef struct
   float* s6;
   float* s7;
   float* s8;
-}  soa __attribute__((aligned(16)));
+}  soa __attribute__((aligned(64)));
 
 
 /*
