@@ -149,6 +149,9 @@ void usage(const char* exe);
 */
 int main(int argc, char* argv[])
 {
+  setenv("OMP_PROC_BIND","close",1);
+  setenv("OMP_PLACES","cores",1);
+
   char*    paramfile = NULL;    /* name of the input parameter file */
   char*    obstaclefile = NULL; /* name of a the input obstacle file */
   t_param  params;              /* struct to hold parameter values */
