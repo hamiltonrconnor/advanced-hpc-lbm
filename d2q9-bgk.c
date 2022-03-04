@@ -559,7 +559,7 @@ float fusion(const t_param params,  int* restrict  obstacles,soa* restrict grid_
 
     const int ny = params.ny;
     const int nx = params.nx;
-    #pragma omp parallel for collapse(2) reduction(+:tot_u,tot_cells)
+    #pragma omp parallel for simd collapse(2) reduction(+:tot_u,tot_cells)
     //#pragma omp
       for (int jj = 0; jj < ny; jj++)
       {
