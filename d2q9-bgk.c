@@ -559,10 +559,10 @@ float fusion(const t_param params,  int* restrict  obstacles,soa* restrict grid_
 
     const int ny = params.ny;
     const int nx = params.nx;
-    #pragma omp parallel for simd collapse(2) reduction(+:tot_u,tot_cells)
+    //#pragma omp parallel for simd collapse(2) reduction(+:tot_u,tot_cells)
       for (int jj = 0; jj < ny; jj++)
       {
-        //#pragma omp simd
+        #pragma omp simd
         for (int ii = 0; ii < nx; ii++)
         {
           __assume_aligned((*grid_ptr).s0,16);
