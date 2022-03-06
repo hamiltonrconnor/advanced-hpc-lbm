@@ -482,10 +482,10 @@ float fusion(const t_param params, t_speed** cells_ptr, t_speed** tmp_cells_ptr,
       //PROPAGATE
       /* determine indices of axis-direction neighbours
       ** respecting periodic boundary conditions (wrap around) */
-      short y_n = (jj + 1) % params.ny;
-      short x_e = (ii + 1) % params.nx;
-      short y_s = (jj == 0) ? (jj + params.ny - 1) : (jj - 1);
-      short x_w = (ii == 0) ? (ii + params.nx - 1) : (ii - 1);
+      const short y_n = (jj + 1) % params.ny;
+      const short x_e = (ii + 1) % params.nx;
+      const short y_s = (jj == 0) ? (jj + params.ny - 1) : (jj - 1);
+      const short x_w = (ii == 0) ? (ii + params.nx - 1) : (ii - 1);
       /* propagate densities from neighbouring cells, following
       ** appropriate directions of travel and writing into
       ** scratch space grid */
@@ -507,14 +507,14 @@ float fusion(const t_param params, t_speed** cells_ptr, t_speed** tmp_cells_ptr,
         //.rebound(params, output,tmp_cells,ii, jj );
         /* called after propagate, so taking values from scratch space
         ** mirroring, and writing into main grid */
-        float c1 = tmp_cells[ii + jj*params.nx].speeds[1];
-        float c2 = tmp_cells[ii + jj*params.nx].speeds[2];
-        float c3 = tmp_cells[ii + jj*params.nx].speeds[3];
-        float c4 = tmp_cells[ii + jj*params.nx].speeds[4];
-        float c5 = tmp_cells[ii + jj*params.nx].speeds[5];
-        float c6 = tmp_cells[ii + jj*params.nx].speeds[6];
-        float c7 = tmp_cells[ii + jj*params.nx].speeds[7];
-        float c8 = tmp_cells[ii + jj*params.nx].speeds[8];
+        const float c1 = tmp_cells[ii + jj*params.nx].speeds[1];
+        const float c2 = tmp_cells[ii + jj*params.nx].speeds[2];
+        const float c3 = tmp_cells[ii + jj*params.nx].speeds[3];
+        const float c4 = tmp_cells[ii + jj*params.nx].speeds[4];
+        const float c5 = tmp_cells[ii + jj*params.nx].speeds[5];
+        const float c6 = tmp_cells[ii + jj*params.nx].speeds[6];
+        const float c7 = tmp_cells[ii + jj*params.nx].speeds[7];
+        const float c8 = tmp_cells[ii + jj*params.nx].speeds[8];
         tmp_cells[ii + jj*params.nx].speeds[1] = c3;
         tmp_cells[ii + jj*params.nx].speeds[2] = c4;
         tmp_cells[ii + jj*params.nx].speeds[3] = c1;
