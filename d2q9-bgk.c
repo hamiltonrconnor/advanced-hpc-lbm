@@ -665,19 +665,19 @@ float fusion(const t_param params, t_speed** cells_ptr, t_speed** tmp_cells_ptr,
                                                - tmp_cells[ii + jj*params.nx].speeds[4]);
         tmp_cells[ii + jj*params.nx].speeds[5] =tmp_cells[ii + jj*params.nx].speeds[5]
                                                 + params.omega
-                                                * (c_w1 *(c_a+(c_c*u[5])+(u[5]*u[5])-c_b)/c_a
+                                                * (c_w2 *(c_a+(c_c*u[5])+(u[5]*u[5])-c_b)/c_a
                                                 - tmp_cells[ii + jj*params.nx].speeds[5]);
         tmp_cells[ii + jj*params.nx].speeds[6] =tmp_cells[ii + jj*params.nx].speeds[6]
                                                + params.omega
-                                               * (c_w1 *(c_a+(c_c*u[6])+(u[6]*u[6])-c_b)/c_a
+                                               * (c_w2 *(c_a+(c_c*u[6])+(u[6]*u[6])-c_b)/c_a
                                                - tmp_cells[ii + jj*params.nx].speeds[6]);
         tmp_cells[ii + jj*params.nx].speeds[7] =tmp_cells[ii + jj*params.nx].speeds[7]
                                               + params.omega
-                                              * (c_w1 *(c_a+(c_c*u[7])+(u[7]*u[7])-c_b)/c_a
+                                              * (c_w2 *(c_a+(c_c*u[7])+(u[7]*u[7])-c_b)/c_a
                                               - tmp_cells[ii + jj*params.nx].speeds[7]);
         tmp_cells[ii + jj*params.nx].speeds[8] =tmp_cells[ii + jj*params.nx].speeds[8]
                                              + params.omega
-                                             * (c_w1 *(c_a+(c_c*u[8])+(u[8]*u[8])-c_b)/c_a
+                                             * (c_w2 *(c_a+(c_c*u[8])+(u[8]*u[8])-c_b)/c_a
                                              - tmp_cells[ii + jj*params.nx].speeds[8]);
 
 
