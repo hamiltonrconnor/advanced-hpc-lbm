@@ -161,9 +161,9 @@ int main(int argc, char* argv[])
   for (int tt = 0; tt < params.maxIters; tt++)
   {
     av_vels[tt] = timestep(params, cells_ptr, tmp_cells_ptr, obstacles);
-    //t_speed** temp = cells_ptr;
+    t_speed** temp = cells_ptr;
     cells_ptr= tmp_cells_ptr;
-    //tmp_cells_ptr= temp;
+    tmp_cells_ptr= temp;
     //av_vels[tt] = av_velocity(params, cells, obstacles);
 #ifdef DEBUG
     printf("==timestep: %d==\n", tt);
@@ -586,7 +586,7 @@ float fusion(const t_param params, t_speed** cells_ptr, t_speed** tmp_cells_ptr,
                      / local_density;
 
         /* velocity squared */
-        float u_sq = u_x * u_x + u_y * u_y;
+        const float u_sq = u_x * u_x + u_y * u_y;
 
         /* directional velocity components */
         float u[NSPEEDS];
@@ -623,21 +623,21 @@ float fusion(const t_param params, t_speed** cells_ptr, t_speed** tmp_cells_ptr,
         /* local density total */
         float av_local_density = 0.f;
         /* relaxation step */
-        t_speed temp;
+        //t_speed temp;
         for (int kk = 0; kk < NSPEEDS; kk++)
         {
           float outVal = tmp_cells[ii + jj*params.nx].speeds[kk]
                                                   + params.omega
                                                   * (d_equ[kk] - tmp_cells[ii + jj*params.nx].speeds[kk]);
           //output[ii + jj*params.nx].speeds[kk] = outVal;
-          temp.speeds[kk] = outVal;
+          tmp_cells[ii + jj*params.nx].speeds[kk] = outVal;
           av_local_density += outVal;
           // cells[ii + jj*params.nx].speeds[kk] = tmp_cells[ii + jj*params.nx].speeds[kk]
           //                                                                                 + params.omega
           //                                                                                 * (d_equ[kk] - tmp_cells[ii + jj*params.nx].speeds[kk]);
 
         }
-        tmp_cells[ii + jj*params.nx] = temp;
+        t//mp_cells[ii + jj*params.nx] = temp;
         float inv_av_local_density = 1/av_local_density;
         /* x-component of velocity */
         float av_u_x = (tmp_cells[ii + jj*params.nx].speeds[1]
