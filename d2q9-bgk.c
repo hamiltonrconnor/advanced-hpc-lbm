@@ -604,8 +604,8 @@ float fusion(const t_param params, t_speed** cells_ptr, t_speed** tmp_cells_ptr,
         /* equilibrium densities */
         //float d_equ[NSPEEDS];
         /* zero velocity density: weight w0 */
-        d_equ[0] = w0 * local_density
-                   * (1.f - u_sq / (2.f * c_sq));
+        // d_equ[0] = w0 * local_density
+        //            * (1.f - u_sq / (2.f * c_sq));
         /* axis speeds: weight w1 */
         // d_equ[1] = w1 * local_density *
         // (1.f + (u[1] / c_sq )+ ((u[1] * u[1]) / (2.f * c_sq * c_sq)) - (u_sq / (2.f * c_sq)));
@@ -691,7 +691,7 @@ float fusion(const t_param params, t_speed** cells_ptr, t_speed** tmp_cells_ptr,
           //                                                                                 + params.omega
           //                                                                                 * (d_equ[kk] - tmp_cells[ii + jj*params.nx].speeds[kk]);
 
-        }
+        
         //mp_cells[ii + jj*params.nx] = temp;
         float inv_av_local_density = 1/av_local_density;
         /* x-component of velocity */
