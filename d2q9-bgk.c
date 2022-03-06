@@ -515,7 +515,7 @@ float fusion(const t_param params, t_speed** cells_ptr, t_speed** tmp_cells_ptr,
         const float c5 = tmp_cells[ii + jj*params.nx].speeds[5];
         const float c6 = tmp_cells[ii + jj*params.nx].speeds[6];
         //const float c7 = tmp_cells[ii + jj*params.nx].speeds[7];
-        /const float c8 = tmp_cells[ii + jj*params.nx].speeds[8];
+        //const float c8 = tmp_cells[ii + jj*params.nx].speeds[8];
         tmp_cells[ii + jj*params.nx].speeds[1] = tmp_cells[ii + jj*params.nx].speeds[3];
         tmp_cells[ii + jj*params.nx].speeds[2] = tmp_cells[ii + jj*params.nx].speeds[4];
         tmp_cells[ii + jj*params.nx].speeds[3] = c1;
