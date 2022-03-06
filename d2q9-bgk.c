@@ -616,6 +616,15 @@ float fusion(const t_param params, t_speed** cells_ptr, t_speed** tmp_cells_ptr,
 
         const float c_b = (u_sq*c_sq);
 
+        d_equ[1] = u[7];
+        d_equ[2] = u[7];
+        d_equ[3] = u[7];
+        d_equ[4] = u[7];
+        d_equ[5] = u[7];
+        d_equ[6] = u[7];
+        d_equ[7] = u[7];
+        d_equ[8] = u[7];
+
         d_equ[1] = c_w1 *(c_a+(c_c*u[1])+(u[1]*u[1])-c_b)/c_a;
         d_equ[2] = c_w1 *(c_a+(c_c*u[2])+(u[2]*u[2])-c_b)/c_a;
         d_equ[3] = c_w1 *(c_a+(c_c*u[3])+(u[3]*u[3])-c_b)/c_a;
