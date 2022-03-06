@@ -509,18 +509,18 @@ float fusion(const t_param params, t_speed** cells_ptr, t_speed** tmp_cells_ptr,
         ** mirroring, and writing into main grid */
         const float c1 = tmp_cells[ii + jj*params.nx].speeds[1];
         const float c2 = tmp_cells[ii + jj*params.nx].speeds[2];
-        const float c3 = tmp_cells[ii + jj*params.nx].speeds[3];
-        const float c4 = tmp_cells[ii + jj*params.nx].speeds[4];
+        //const float c3 = tmp_cells[ii + jj*params.nx].speeds[3];
+        //const float c4 = tmp_cells[ii + jj*params.nx].speeds[4];
         const float c5 = tmp_cells[ii + jj*params.nx].speeds[5];
         const float c6 = tmp_cells[ii + jj*params.nx].speeds[6];
-        const float c7 = tmp_cells[ii + jj*params.nx].speeds[7];
-        const float c8 = tmp_cells[ii + jj*params.nx].speeds[8];
-        tmp_cells[ii + jj*params.nx].speeds[1] = c3;
-        tmp_cells[ii + jj*params.nx].speeds[2] = c4;
+        //const float c7 = tmp_cells[ii + jj*params.nx].speeds[7];
+        //const float c8 = tmp_cells[ii + jj*params.nx].speeds[8];
+        tmp_cells[ii + jj*params.nx].speeds[1] = tmp_cells[ii + jj*params.nx].speeds[3];
+        tmp_cells[ii + jj*params.nx].speeds[2] = tmp_cells[ii + jj*params.nx].speeds[4];
         tmp_cells[ii + jj*params.nx].speeds[3] = c1;
         tmp_cells[ii + jj*params.nx].speeds[4] = c2;
-        tmp_cells[ii + jj*params.nx].speeds[5] = c7;
-        tmp_cells[ii + jj*params.nx].speeds[6] = c8;
+        tmp_cells[ii + jj*params.nx].speeds[5] = tmp_cells[ii + jj*params.nx].speeds[7];
+        tmp_cells[ii + jj*params.nx].speeds[6] = tmp_cells[ii + jj*params.nx].speeds[8];
         tmp_cells[ii + jj*params.nx].speeds[7] = c5;
         tmp_cells[ii + jj*params.nx].speeds[8] = c6;
 
