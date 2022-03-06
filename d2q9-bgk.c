@@ -457,7 +457,7 @@ float fusion(const t_param params, t_speed** cells_ptr, t_speed** tmp_cells_ptr,
   const float w1 = 1.f / 9.f;  /* weighting factor */
   const float w2 = 1.f / 36.f; /* weighting factor */
   const float c_a = (2.f*c_sq*c_sq);
-  const float c_c = (2.f*c_sq;
+  const float c_c = 2.f*c_sq;
 
   t_speed* cells = *cells_ptr;
   t_speed* tmp_cells = *tmp_cells_ptr;
