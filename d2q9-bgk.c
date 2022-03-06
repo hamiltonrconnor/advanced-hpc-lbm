@@ -473,10 +473,9 @@ float fusion(const t_param params, t_speed** cells_ptr, t_speed** tmp_cells_ptr,
     // for(int n=0; n<params.ny*params.nx; n++) {
     //   int ii = n/params.nx; int jj=n%params.nx;
     //#pragma omp parallel for collapse(2) reduction(+:tot_u,tot_cells)
-    for (int ii = 0; ii < params.nx; ii++)
-
+      for (int jj = 0; jj < params.ny; jj++)
       {
-        for (int jj = 0; jj < params.ny; jj++)
+        for (int ii = 0; ii < params.nx; ii++)
         {
       //printf("%d\n",omp_get_num_threads());
       //propagate(params,cells,tmp_cells,ii,jj);
@@ -515,7 +514,7 @@ float fusion(const t_param params, t_speed** cells_ptr, t_speed** tmp_cells_ptr,
         const float c5 = tmp_cells[ii + jj*params.nx].speeds[5];
         const float c6 = tmp_cells[ii + jj*params.nx].speeds[6];
         //const float c7 = tmp_cells[ii + jj*params.nx].speeds[7];
-        //const float c8 = tmp_cells[ii + jj*params.nx].speeds[8];
+        /const float c8 = tmp_cells[ii + jj*params.nx].speeds[8];
         tmp_cells[ii + jj*params.nx].speeds[1] = tmp_cells[ii + jj*params.nx].speeds[3];
         tmp_cells[ii + jj*params.nx].speeds[2] = tmp_cells[ii + jj*params.nx].speeds[4];
         tmp_cells[ii + jj*params.nx].speeds[3] = c1;
