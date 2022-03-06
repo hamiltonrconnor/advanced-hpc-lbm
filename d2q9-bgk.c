@@ -681,7 +681,7 @@ float fusion(const t_param params, t_speed** cells_ptr, t_speed** tmp_cells_ptr,
                                              - tmp_cells[ii + jj*params.nx].speeds[8]);
 
 
-        const float av_local_density = av_local_density += tmp_cells[ii + jj*params.nx].speeds[0]+tmp_cells[ii + jj*params.nx].speeds[1]
+        const float av_local_density = tmp_cells[ii + jj*params.nx].speeds[0]+tmp_cells[ii + jj*params.nx].speeds[1]
                             +av_local_density += tmp_cells[ii + jj*params.nx].speeds[2]+tmp_cells[ii + jj*params.nx].speeds[3]
                             +av_local_density += tmp_cells[ii + jj*params.nx].speeds[4]+tmp_cells[ii + jj*params.nx].speeds[5]
                             + av_local_density += tmp_cells[ii + jj*params.nx].speeds[6]+tmp_cells[ii + jj*params.nx].speeds[7]
@@ -691,7 +691,7 @@ float fusion(const t_param params, t_speed** cells_ptr, t_speed** tmp_cells_ptr,
           //                                                                                 + params.omega
           //                                                                                 * (d_equ[kk] - tmp_cells[ii + jj*params.nx].speeds[kk]);
 
-        
+
         //mp_cells[ii + jj*params.nx] = temp;
         float inv_av_local_density = 1/av_local_density;
         /* x-component of velocity */
