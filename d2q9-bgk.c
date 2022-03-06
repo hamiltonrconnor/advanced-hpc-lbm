@@ -161,9 +161,9 @@ int main(int argc, char* argv[])
   for (int tt = 0; tt < params.maxIters; tt++)
   {
     av_vels[tt] = timestep(params, cells_ptr, tmp_cells_ptr, obstacles);
-    t_speed** temp = cells_ptr;
+    //t_speed** temp = cells_ptr;
     cells_ptr= tmp_cells_ptr;
-    tmp_cells_ptr= temp;
+    //tmp_cells_ptr= temp;
     //av_vels[tt] = av_velocity(params, cells, obstacles);
 #ifdef DEBUG
     printf("==timestep: %d==\n", tt);
@@ -609,7 +609,7 @@ float fusion(const t_param params, t_speed** cells_ptr, t_speed** tmp_cells_ptr,
         // (1.f + (u[1] / c_sq )+ ((u[1] * u[1]) / (2.f * c_sq * c_sq)) - (u_sq / (2.f * c_sq)));
 
         //printf("%f\n",w1 *local_density *((2.f*c_sq*c_sq)+(2.f*c_sq*u[1])+(u[1]*u[1])-(u_sq*c_sq))/(2.f*c_sq*c_sq));
-        d_equ[1] = w1 *local_density *((2.f*c_sq*c_sq)+(2.f*c_sq*u[1])+(u[1]*u[1])-(u_sq*c_sq))/(2.f*c_sq*c_sq);
+        d_equ[1] = w1 *local_density *((2.f*c_sq*c_sq)+(2.f*c_sq*u[1])+(u[1]*u[1])-(u_sq*c_sq))*(1/(2.f*c_sq*c_sq));
 
         d_equ[2] = w1 *local_density *((2.f*c_sq*c_sq)+(2.f*c_sq*u[2])+(u[2]*u[2])-(u_sq*c_sq))/(2.f*c_sq*c_sq);
         d_equ[3] = w1 *local_density *((2.f*c_sq*c_sq)+(2.f*c_sq*u[3])+(u[3]*u[3])-(u_sq*c_sq))/(2.f*c_sq*c_sq);
