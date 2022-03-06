@@ -637,7 +637,7 @@ float fusion(const t_param params, t_speed** cells_ptr, t_speed** tmp_cells_ptr,
           //                                                                                 * (d_equ[kk] - tmp_cells[ii + jj*params.nx].speeds[kk]);
 
         }
-        t//mp_cells[ii + jj*params.nx] = temp;
+        //mp_cells[ii + jj*params.nx] = temp;
         float inv_av_local_density = 1/av_local_density;
         /* x-component of velocity */
         float av_u_x = (tmp_cells[ii + jj*params.nx].speeds[1]
