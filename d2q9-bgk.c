@@ -482,10 +482,10 @@ float fusion(const t_param params, t_speed** cells_ptr, t_speed** tmp_cells_ptr,
       //PROPAGATE
       /* determine indices of axis-direction neighbours
       ** respecting periodic boundary conditions (wrap around) */
-      int y_n = (jj + 1) % params.ny;
-      int x_e = (ii + 1) % params.nx;
-      int y_s = (jj == 0) ? (jj + params.ny - 1) : (jj - 1);
-      int x_w = (ii == 0) ? (ii + params.nx - 1) : (ii - 1);
+      short y_n = (jj + 1) % params.ny;
+      short x_e = (ii + 1) % params.nx;
+      short y_s = (jj == 0) ? (jj + params.ny - 1) : (jj - 1);
+      short x_w = (ii == 0) ? (ii + params.nx - 1) : (ii - 1);
       /* propagate densities from neighbouring cells, following
       ** appropriate directions of travel and writing into
       ** scratch space grid */
@@ -673,9 +673,9 @@ float fusion(const t_param params, t_speed** cells_ptr, t_speed** tmp_cells_ptr,
         //                  + output[ii + jj*params.nx].speeds[7]
         //                  + output[ii + jj*params.nx].speeds[8]))
         //              / av_local_density;
-        float temp = (av_u_x * av_u_x) + (av_u_y * av_u_y);
+
         /* accumulate the norm of x- and y- velocity components */
-        tot_u += sqrtf(temp);
+        tot_u += sqrtf((av_u_x * av_u_x) + (av_u_y * av_u_y));
         /* increase counter of inspected cells */
         ++tot_cells;
 
@@ -689,10 +689,6 @@ float fusion(const t_param params, t_speed** cells_ptr, t_speed** tmp_cells_ptr,
 
 
 
-
-
-
-return EXIT_SUCCESS;
 
 
 }
