@@ -133,7 +133,8 @@ int main(int argc, char* argv[])
   float* av_vels   = NULL;     /* a record of the av. velocity computed for each timestep */
   struct timeval timstr;                                                             /* structure to hold elapsed time */
   double tot_tic, tot_toc, init_tic, init_toc, comp_tic, comp_toc, col_tic, col_toc; /* floating point numbers to calculate elapsed wallclock time */
-
+  t_speed** cells_ptr = &cells;
+  t_speed** tmp_cells_ptr= &tmp_cells;
   /* parse the command line */
   if (argc != 3)
   {
@@ -156,8 +157,7 @@ int main(int argc, char* argv[])
   init_toc = timstr.tv_sec + (timstr.tv_usec / 1000000.0);
   comp_tic=init_toc;
 
-  t_speed** cells_ptr = &cells;
-  t_speed** tmp_cells_ptr= &tmp_cells;
+
   for (int tt = 0; tt < params.maxIters; tt++)
   {
     av_vels[tt] = timestep(params, cells_ptr, tmp_cells_ptr, obstacles);
@@ -437,7 +437,8 @@ float av_velocity(const t_param params, t_speed* cells, int* obstacles)
                          + cells[ii + jj*params.nx].speeds[8]))
                      / local_density;
         /* accumulate the norm of x- and y- velocity components */
-        tot_u += sqrtf((u_x * u_x) + (u_y * u_y));
+        float temp = (u_x * u_x) + (u_y * u_y)
+        tot_u += sqrtf(temp);
         /* increase counter of inspected cells */
         ++tot_cells;
       }
@@ -637,6 +638,7 @@ float fusion(const t_param params, t_speed** cells_ptr, t_speed** tmp_cells_ptr,
 
         }
         tmp_cells[ii + jj*params.nx] = temp;
+
         /* x-component of velocity */
         float av_u_x = (tmp_cells[ii + jj*params.nx].speeds[1]
                       + tmp_cells[ii + jj*params.nx].speeds[5]
