@@ -650,7 +650,7 @@ float fusion(const t_param params, t_speed** cells_ptr, t_speed** tmp_cells_ptr,
           }else if(i<5){
             diffVal = c_w1 *(c_a+(c_c*u[i])+(u[i]*u[i])-c_b)/c_a;
           }else{
-            diffVal = c_w2 *(c_a+(c_c*u[i])+(u[i]*u[i])-c_b)/c_a
+            diffVal = c_w2 *(c_a+(c_c*u[i])+(u[i]*u[i])-c_b)/c_a;
           }
           outVal = tmp_cells[ii + jj*params.nx].speeds[i]
                                                     + params.omega
