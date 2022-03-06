@@ -641,6 +641,7 @@ float fusion(const t_param params, t_speed** cells_ptr, t_speed** tmp_cells_ptr,
 
         /* relaxation step */
         //t_speed temp;
+        float av_local_density =0.0f;
         float outVal;
         float diffVal;
         for(int i = 0; i<NSPEEDS;i++){
