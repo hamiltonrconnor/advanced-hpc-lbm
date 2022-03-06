@@ -613,7 +613,7 @@ float fusion(const t_param params, t_speed** cells_ptr, t_speed** tmp_cells_ptr,
         const float c_w2 = w2*local_density;
         const float c_a = (2.f*c_sq*c_sq);
         const float c_b = (u_sq*c_sq);
-        d_equ[1] = c_w1 *(c_a+(2.f*c_sq*u[1])+(u[1]*u[1])-c_b)/c_a);
+        d_equ[1] = c_w1 *(c_a+(2.f*c_sq*u[1])+(u[1]*u[1])-c_b)/c_a;
         d_equ[2] = c_w1 *(c_a+(2.f*c_sq*u[2])+(u[2]*u[2])-c_b)/c_a;
         d_equ[3] = c_w1 *(c_a+(2.f*c_sq*u[3])+(u[3]*u[3])-c_b)/c_a;
         d_equ[4] = c_w1 *(c_a+(2.f*c_sq*u[4])+(u[4]*u[4])-c_b)/c_a;
