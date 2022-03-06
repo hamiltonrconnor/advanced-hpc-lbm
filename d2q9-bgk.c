@@ -673,9 +673,9 @@ float fusion(const t_param params, t_speed** cells_ptr, t_speed** tmp_cells_ptr,
         //                  + output[ii + jj*params.nx].speeds[7]
         //                  + output[ii + jj*params.nx].speeds[8]))
         //              / av_local_density;
-
+        float temp = (av_u_x * av_u_x) + (av_u_y * av_u_y);
         /* accumulate the norm of x- and y- velocity components */
-        tot_u += sqrtf((av_u_x * av_u_x) + (av_u_y * av_u_y));
+        tot_u += sqrtf(temp);
         /* increase counter of inspected cells */
         ++tot_cells;
 
