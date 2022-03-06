@@ -616,14 +616,14 @@ float fusion(const t_param params, t_speed** cells_ptr, t_speed** tmp_cells_ptr,
 
         const float c_b = (u_sq*c_sq);
 
-        d_equ[1] = c_w1 *(c_a+c_c*u[1])+(u[1]*u[1])-c_b)/c_a;
-        d_equ[2] = c_w1 *(c_a+c_c*u[2])+(u[2]*u[2])-c_b)/c_a;
-        d_equ[3] = c_w1 *(c_a+c_c*u[3])+(u[3]*u[3])-c_b)/c_a;
-        d_equ[4] = c_w1 *(c_a+c_c*u[4])+(u[4]*u[4])-c_b)/c_a;
-        d_equ[5] = c_w2 *(c_a+c_c*u[5])+(u[5]*u[5])-c_b)/c_a;
-        d_equ[6] = c_w2 *(c_a+c_c*u[6])+(u[6]*u[6])-c_b)/c_a;
-        d_equ[7] = c_w2 *(c_a+c_c*u[7])+(u[7]*u[7])-c_b)/c_a;
-        d_equ[8] = c_w2 *(c_a+c_c*u[8])+(u[8]*u[8])-c_b)/c_a;
+        d_equ[1] = c_w1 *(c_a+(c_c*u[1])+(u[1]*u[1])-c_b)/c_a;
+        d_equ[2] = c_w1 *(c_a+(c_c*u[2])+(u[2]*u[2])-c_b)/c_a;
+        d_equ[3] = c_w1 *(c_a+(c_c*u[3])+(u[3]*u[3])-c_b)/c_a;
+        d_equ[4] = c_w1 *(c_a+(c_c*u[4])+(u[4]*u[4])-c_b)/c_a;
+        d_equ[5] = c_w2 *(c_a+(c_c*u[5])+(u[5]*u[5])-c_b)/c_a;
+        d_equ[6] = c_w2 *(c_a+(c_c*u[6])+(u[6]*u[6])-c_b)/c_a;
+        d_equ[7] = c_w2 *(c_a+(c_c*u[7])+(u[7]*u[7])-c_b)/c_a;
+        d_equ[8] = c_w2 *(c_a+(c_c*u[8])+(u[8]*u[8])-c_b)/c_a;
 
         // d_equ[1] = w1 *local_density *((2.f*c_sq*c_sq)+(2.f*c_sq*u[1])+(u[1]*u[1])-c_b)*(1/(2.f*c_sq*c_sq));
         // d_equ[2] = w1 *local_density *((2.f*c_sq*c_sq)+(2.f*c_sq*u[2])+(u[2]*u[2])-(u_sq*c_sq))/(2.f*c_sq*c_sq);
