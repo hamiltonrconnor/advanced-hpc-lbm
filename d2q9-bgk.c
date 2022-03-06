@@ -655,7 +655,7 @@ float fusion(const t_param params, t_speed** cells_ptr, t_speed** tmp_cells_ptr,
           outVal = tmp_cells[ii + jj*params.nx].speeds[i]
                                                     + params.omega
                                                     * (diffVal - tmp_cells[ii + jj*params.nx].speeds[i]);
-          //av_local_density += outVal;
+          av_local_density += outVal;
           tmp_cells[ii + jj*params.nx].speeds[i] =outVal;
 
         }
