@@ -566,7 +566,7 @@ float fusion(const t_param params,  int* restrict  obstacles,soa* restrict grid_
 
       for (int jj = 0; jj < ny; jj++)
       {
-        #pragma omp parallel simd for reduction(+:tot_u,tot_cells)
+        #pragma omp parallel for  simd reduction(+:tot_u,tot_cells)
         for (int ii = 0; ii < nx; ii++)
         {
           __assume_aligned((*grid_ptr).s0,64);
