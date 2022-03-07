@@ -149,8 +149,7 @@ void usage(const char* exe);
 */
 int main(int argc, char* argv[])
 {
-  setenv("OMP_PROC_BIND","close",1);
-  setenv("OMP_PLACES","cores",1);
+
 
   char*    paramfile = NULL;    /* name of the input parameter file */
   char*    obstaclefile = NULL; /* name of a the input obstacle file */
@@ -245,7 +244,7 @@ int accelerate_flow(const t_param params,  int* obstacles,soa* grid_ptr)
 
   /* modify the 2nd row of the grid */
   int jj = params.ny - 2;
-  //#pragma omp parallel for
+  #pragma omp parallel for schedule(runtime)
   for (int ii = 0; ii < params.nx; ii++)
   {
     /* if the cell is not occupied and
@@ -563,7 +562,7 @@ float fusion(const t_param params,  int* restrict  obstacles,soa* restrict grid_
 
     const int ny = params.ny;
     const int nx = params.nx;
-      #pragma omp parallel for reduction(+:tot_u,tot_cells)
+      #pragma omp parallel for reduction(+:tot_u,tot_cells) schedule(runtime)
       for (int jj = 0; jj < ny; jj++)
       {
         #pragma omp simd reduction(+:tot_u,tot_cells)
@@ -943,7 +942,7 @@ int initialise(const char* paramfile, const char* obstaclefile,
   float w0 = params->density * 4.f / 9.f;
   float w1 = params->density      / 9.f;
   float w2 = params->density      / 36.f;
-  #pragma omp parallel for collapse(2)
+  #pragma omp parallel for collapse(2) schedule(runtime)
   for (int jj = 0; jj < params->ny; jj++)
   {
     for (int ii = 0; ii < params->nx; ii++)
