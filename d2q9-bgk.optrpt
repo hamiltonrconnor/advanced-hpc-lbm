@@ -1,0 +1,582 @@
+Intel(R) Advisor can now assist with vectorization and show optimization
+  report messages with your source code.
+See "https://software.intel.com/en-us/intel-advisor-xe" for details.
+
+Intel(R) C Intel(R) 64 Compiler for applications running on Intel(R) 64, Version 19.1.3.304 Build 20200925_000000
+
+Compiler options: -xHOST -fopenmp -std=c99 -Wall -Ofast -mtune=native -qopt-report=5 -qopt-report-phase=vec -lm -o d2q9-bgk
+
+Begin optimization report for: main(int, char **)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at d2q9-bgk.c(188,3)
+   remark #15523: loop was not vectorized: loop control variable tt was found, but loop iteration count cannot be computed before executing the loop
+LOOP END
+
+LOOP BEGIN at d2q9-bgk.c(444,3) inlined into d2q9-bgk.c(219,41)
+   remark #15542: loop was not vectorized: inner loop was already vectorized
+
+   LOOP BEGIN at d2q9-bgk.c(446,5) inlined into d2q9-bgk.c(219,41)
+   <Peeled loop for vectorization>
+   LOOP END
+
+   LOOP BEGIN at d2q9-bgk.c(446,5) inlined into d2q9-bgk.c(219,41)
+      remark #15389: vectorization support: reference grid.s0[ii+jj*params.nx] has unaligned access   [ d2q9-bgk.c(452,31) ]
+      remark #15389: vectorization support: reference grid.s1[ii+jj*params.nx] has unaligned access   [ d2q9-bgk.c(452,60) ]
+      remark #15389: vectorization support: reference grid.s2[ii+jj*params.nx] has unaligned access   [ d2q9-bgk.c(453,25) ]
+      remark #15389: vectorization support: reference grid.s3[ii+jj*params.nx] has unaligned access   [ d2q9-bgk.c(453,54) ]
+      remark #15389: vectorization support: reference grid.s4[ii+jj*params.nx] has unaligned access   [ d2q9-bgk.c(454,25) ]
+      remark #15389: vectorization support: reference grid.s5[ii+jj*params.nx] has unaligned access   [ d2q9-bgk.c(454,54) ]
+      remark #15389: vectorization support: reference grid.s6[ii+jj*params.nx] has unaligned access   [ d2q9-bgk.c(455,25) ]
+      remark #15389: vectorization support: reference grid.s7[ii+jj*params.nx] has unaligned access   [ d2q9-bgk.c(455,54) ]
+      remark #15389: vectorization support: reference grid.s8[ii+jj*params.nx] has unaligned access   [ d2q9-bgk.c(456,25) ]
+      remark #15389: vectorization support: reference grid.s1[ii+jj*params.nx] has unaligned access   [ d2q9-bgk.c(460,21) ]
+      remark #15389: vectorization support: reference grid.s5[ii+jj*params.nx] has unaligned access   [ d2q9-bgk.c(461,24) ]
+      remark #15389: vectorization support: reference grid.s8[ii+jj*params.nx] has unaligned access   [ d2q9-bgk.c(462,24) ]
+      remark #15389: vectorization support: reference grid.s3[ii+jj*params.nx] has unaligned access   [ d2q9-bgk.c(463,25) ]
+      remark #15389: vectorization support: reference grid.s6[ii+jj*params.nx] has unaligned access   [ d2q9-bgk.c(464,27) ]
+      remark #15389: vectorization support: reference grid.s7[ii+jj*params.nx] has unaligned access   [ d2q9-bgk.c(465,27) ]
+      remark #15389: vectorization support: reference grid.s2[ii+jj*params.nx] has unaligned access   [ d2q9-bgk.c(468,21) ]
+      remark #15389: vectorization support: reference grid.s5[ii+jj*params.nx] has unaligned access   [ d2q9-bgk.c(469,24) ]
+      remark #15389: vectorization support: reference grid.s6[ii+jj*params.nx] has unaligned access   [ d2q9-bgk.c(470,24) ]
+      remark #15389: vectorization support: reference grid.s4[ii+jj*params.nx] has unaligned access   [ d2q9-bgk.c(471,25) ]
+      remark #15389: vectorization support: reference grid.s7[ii+jj*params.nx] has unaligned access   [ d2q9-bgk.c(472,27) ]
+      remark #15389: vectorization support: reference grid.s8[ii+jj*params.nx] has unaligned access   [ d2q9-bgk.c(473,27) ]
+      remark #15381: vectorization support: unaligned access used inside loop body
+      remark #15305: vectorization support: vector length 8
+      remark #15309: vectorization support: normalized vectorization overhead 0.351
+      remark #15355: vectorization support: tot_u is float type reduction   [ d2q9-bgk.c(440,3) ]
+      remark #15355: vectorization support: tot_cells is int type reduction   [ d2q9-bgk.c(436,20) ]
+      remark #15300: LOOP WAS VECTORIZED
+      remark #15442: entire loop may be executed in remainder
+      remark #15450: unmasked unaligned unit stride loads: 1 
+      remark #15456: masked unaligned unit stride loads: 21 
+      remark #15475: --- begin vector cost summary ---
+      remark #15476: scalar cost: 105 
+      remark #15477: vector cost: 26.000 
+      remark #15478: estimated potential speedup: 3.570 
+      remark #15486: divides: 2 
+      remark #15488: --- end vector cost summary ---
+   LOOP END
+
+   LOOP BEGIN at d2q9-bgk.c(446,5) inlined into d2q9-bgk.c(219,41)
+   <Remainder loop for vectorization>
+   LOOP END
+LOOP END
+
+LOOP BEGIN at d2q9-bgk.c(261,7) inlined into d2q9-bgk.c(191,19)
+   remark #15521: loop was not vectorized: loop control variable was not identified. Explicitly compute the iteration count before executing the loop or try using canonical loop form from OpenMP specification
+
+   LOOP BEGIN at d2q9-bgk.c(247,3) inlined into d2q9-bgk.c(191,19)
+      remark #15344: loop was not vectorized: vector dependence prevents vectorization
+      remark #15346: vector dependence: assumed OUTPUT dependence between grid.s1 (259:7) and grid.s7 (265:7)
+      remark #15346: vector dependence: assumed OUTPUT dependence between grid.s7 (265:7) and grid.s1 (259:7)
+   LOOP END
+LOOP END
+===========================================================================
+
+Begin optimization report for: fusion(const t_param, int *, soa *__restrict__, soa *__restrict__)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at d2q9-bgk.c(786,89)
+   remark #15542: loop was not vectorized: inner loop was already vectorized
+
+   LOOP BEGIN at d2q9-bgk.c(569,9)
+      remark #15542: loop was not vectorized: inner loop was already vectorized
+
+      LOOP BEGIN at d2q9-bgk.c(569,9)
+         remark #15389: vectorization support: reference tmp_grid_ptr->s0[ii+jj*?] has unaligned access   [ d2q9-bgk.c(603,9) ]
+         remark #15389: vectorization support: reference grid_ptr->s0[ii+jj*?] has unaligned access   [ d2q9-bgk.c(603,49) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s1[ii+jj*?] has unaligned access   [ d2q9-bgk.c(604,9) ]
+         remark #15389: vectorization support: reference grid_ptr->s1[x_w+jj*?] has unaligned access   [ d2q9-bgk.c(604,49) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s2[ii+jj*?] has unaligned access   [ d2q9-bgk.c(605,9) ]
+         remark #15389: vectorization support: reference grid_ptr->s2[ii+y_s*?] has unaligned access   [ d2q9-bgk.c(605,49) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s3[ii+jj*?] has unaligned access   [ d2q9-bgk.c(606,9) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s4[ii+jj*?] has unaligned access   [ d2q9-bgk.c(607,9) ]
+         remark #15389: vectorization support: reference grid_ptr->s4[ii+y_n*?] has unaligned access   [ d2q9-bgk.c(607,49) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s5[ii+jj*?] has unaligned access   [ d2q9-bgk.c(608,9) ]
+         remark #15389: vectorization support: reference grid_ptr->s5[x_w+y_s*?] has unaligned access   [ d2q9-bgk.c(608,49) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s6[ii+jj*?] has unaligned access   [ d2q9-bgk.c(609,9) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s7[ii+jj*?] has unaligned access   [ d2q9-bgk.c(610,9) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s8[ii+jj*?] has unaligned access   [ d2q9-bgk.c(611,9) ]
+         remark #15389: vectorization support: reference grid_ptr->s8[x_w+y_n*?] has unaligned access   [ d2q9-bgk.c(611,48) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s1[ii+jj*?] has unaligned access   [ d2q9-bgk.c(624,28) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s2[ii+jj*?] has unaligned access   [ d2q9-bgk.c(625,28) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s3[ii+jj*?] has unaligned access   [ d2q9-bgk.c(626,28) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s4[ii+jj*?] has unaligned access   [ d2q9-bgk.c(627,28) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s5[ii+jj*?] has unaligned access   [ d2q9-bgk.c(628,28) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s6[ii+jj*?] has unaligned access   [ d2q9-bgk.c(629,28) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s7[ii+jj*?] has unaligned access   [ d2q9-bgk.c(630,28) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s8[ii+jj*?] has unaligned access   [ d2q9-bgk.c(631,28) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s1[ii+jj*?] has unaligned access   [ d2q9-bgk.c(632,11) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s2[ii+jj*?] has unaligned access   [ d2q9-bgk.c(633,11) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s3[ii+jj*?] has unaligned access   [ d2q9-bgk.c(634,11) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s4[ii+jj*?] has unaligned access   [ d2q9-bgk.c(635,11) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s5[ii+jj*?] has unaligned access   [ d2q9-bgk.c(636,11) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s6[ii+jj*?] has unaligned access   [ d2q9-bgk.c(637,11) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s7[ii+jj*?] has unaligned access   [ d2q9-bgk.c(638,11) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s8[ii+jj*?] has unaligned access   [ d2q9-bgk.c(639,11) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s0[ii+jj*?] has unaligned access   [ d2q9-bgk.c(657,39) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s1[ii+jj*?] has unaligned access   [ d2q9-bgk.c(657,79) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s2[ii+jj*?] has unaligned access   [ d2q9-bgk.c(658,27) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s3[ii+jj*?] has unaligned access   [ d2q9-bgk.c(658,67) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s4[ii+jj*?] has unaligned access   [ d2q9-bgk.c(659,27) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s5[ii+jj*?] has unaligned access   [ d2q9-bgk.c(659,67) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s6[ii+jj*?] has unaligned access   [ d2q9-bgk.c(660,27) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s7[ii+jj*?] has unaligned access   [ d2q9-bgk.c(660,67) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s8[ii+jj*?] has unaligned access   [ d2q9-bgk.c(661,27) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s1[ii+jj*?] has unaligned access   [ d2q9-bgk.c(665,29) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s5[ii+jj*?] has unaligned access   [ d2q9-bgk.c(666,26) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s8[ii+jj*?] has unaligned access   [ d2q9-bgk.c(667,26) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s3[ii+jj*?] has unaligned access   [ d2q9-bgk.c(668,27) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s6[ii+jj*?] has unaligned access   [ d2q9-bgk.c(669,29) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s7[ii+jj*?] has unaligned access   [ d2q9-bgk.c(670,29) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s2[ii+jj*?] has unaligned access   [ d2q9-bgk.c(673,29) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s5[ii+jj*?] has unaligned access   [ d2q9-bgk.c(674,26) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s6[ii+jj*?] has unaligned access   [ d2q9-bgk.c(675,26) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s4[ii+jj*?] has unaligned access   [ d2q9-bgk.c(676,27) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s7[ii+jj*?] has unaligned access   [ d2q9-bgk.c(677,29) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s8[ii+jj*?] has unaligned access   [ d2q9-bgk.c(678,29) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s0[ii+jj*?] has unaligned access   [ d2q9-bgk.c(786,11) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s0[ii+jj*?] has unaligned access   [ d2q9-bgk.c(786,51) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s0[ii+jj*?] has unaligned access   [ d2q9-bgk.c(786,118) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s1[ii+jj*?] has unaligned access   [ d2q9-bgk.c(787,11) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s1[ii+jj*?] has unaligned access   [ d2q9-bgk.c(787,51) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s1[ii+jj*?] has unaligned access   [ d2q9-bgk.c(787,118) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s2[ii+jj*?] has unaligned access   [ d2q9-bgk.c(788,11) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s2[ii+jj*?] has unaligned access   [ d2q9-bgk.c(788,51) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s2[ii+jj*?] has unaligned access   [ d2q9-bgk.c(788,118) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s3[ii+jj*?] has unaligned access   [ d2q9-bgk.c(789,11) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s3[ii+jj*?] has unaligned access   [ d2q9-bgk.c(789,51) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s3[ii+jj*?] has unaligned access   [ d2q9-bgk.c(789,118) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s4[ii+jj*?] has unaligned access   [ d2q9-bgk.c(790,11) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s4[ii+jj*?] has unaligned access   [ d2q9-bgk.c(790,51) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s4[ii+jj*?] has unaligned access   [ d2q9-bgk.c(790,118) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s5[ii+jj*?] has unaligned access   [ d2q9-bgk.c(791,11) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s5[ii+jj*?] has unaligned access   [ d2q9-bgk.c(791,51) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s5[ii+jj*?] has unaligned access   [ d2q9-bgk.c(791,118) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s6[ii+jj*?] has unaligned access   [ d2q9-bgk.c(792,11) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s6[ii+jj*?] has unaligned access   [ d2q9-bgk.c(792,51) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s6[ii+jj*?] has unaligned access   [ d2q9-bgk.c(792,118) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s7[ii+jj*?] has unaligned access   [ d2q9-bgk.c(793,11) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s7[ii+jj*?] has unaligned access   [ d2q9-bgk.c(793,51) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s7[ii+jj*?] has unaligned access   [ d2q9-bgk.c(793,118) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s8[ii+jj*?] has unaligned access   [ d2q9-bgk.c(794,11) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s8[ii+jj*?] has unaligned access   [ d2q9-bgk.c(794,51) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s8[ii+jj*?] has unaligned access   [ d2q9-bgk.c(794,118) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s0[ii+jj*?] has unaligned access   [ d2q9-bgk.c(796,43) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s1[ii+jj*?] has unaligned access   [ d2q9-bgk.c(796,82) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s2[ii+jj*?] has unaligned access   [ d2q9-bgk.c(797,37) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s3[ii+jj*?] has unaligned access   [ d2q9-bgk.c(797,76) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s4[ii+jj*?] has unaligned access   [ d2q9-bgk.c(798,37) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s5[ii+jj*?] has unaligned access   [ d2q9-bgk.c(798,76) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s6[ii+jj*?] has unaligned access   [ d2q9-bgk.c(799,37) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s7[ii+jj*?] has unaligned access   [ d2q9-bgk.c(799,76) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s8[ii+jj*?] has unaligned access   [ d2q9-bgk.c(800,37) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s1[ii+jj*?] has unaligned access   [ d2q9-bgk.c(806,32) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s5[ii+jj*?] has unaligned access   [ d2q9-bgk.c(807,26) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s8[ii+jj*?] has unaligned access   [ d2q9-bgk.c(808,26) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s3[ii+jj*?] has unaligned access   [ d2q9-bgk.c(809,27) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s6[ii+jj*?] has unaligned access   [ d2q9-bgk.c(810,29) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s7[ii+jj*?] has unaligned access   [ d2q9-bgk.c(811,29) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s2[ii+jj*?] has unaligned access   [ d2q9-bgk.c(814,32) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s5[ii+jj*?] has unaligned access   [ d2q9-bgk.c(815,26) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s6[ii+jj*?] has unaligned access   [ d2q9-bgk.c(816,26) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s4[ii+jj*?] has unaligned access   [ d2q9-bgk.c(817,27) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s7[ii+jj*?] has unaligned access   [ d2q9-bgk.c(818,29) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s8[ii+jj*?] has unaligned access   [ d2q9-bgk.c(819,29) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s1[ii+jj*?] has unaligned access   [ d2q9-bgk.c(632,11) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s2[ii+jj*?] has unaligned access   [ d2q9-bgk.c(633,11) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s3[ii+jj*?] has unaligned access   [ d2q9-bgk.c(634,11) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s4[ii+jj*?] has unaligned access   [ d2q9-bgk.c(635,11) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s5[ii+jj*?] has unaligned access   [ d2q9-bgk.c(636,11) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s6[ii+jj*?] has unaligned access   [ d2q9-bgk.c(637,11) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s7[ii+jj*?] has unaligned access   [ d2q9-bgk.c(638,11) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s8[ii+jj*?] has unaligned access   [ d2q9-bgk.c(639,11) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s0[ii+jj*?] has unaligned access   [ d2q9-bgk.c(786,11) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s1[ii+jj*?] has unaligned access   [ d2q9-bgk.c(787,11) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s2[ii+jj*?] has unaligned access   [ d2q9-bgk.c(788,11) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s3[ii+jj*?] has unaligned access   [ d2q9-bgk.c(789,11) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s4[ii+jj*?] has unaligned access   [ d2q9-bgk.c(790,11) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s5[ii+jj*?] has unaligned access   [ d2q9-bgk.c(791,11) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s6[ii+jj*?] has unaligned access   [ d2q9-bgk.c(792,11) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s7[ii+jj*?] has unaligned access   [ d2q9-bgk.c(793,11) ]
+         remark #15389: vectorization support: reference tmp_grid_ptr->s8[ii+jj*?] has unaligned access   [ d2q9-bgk.c(794,11) ]
+         remark #15381: vectorization support: unaligned access used inside loop body
+         remark #15415: vectorization support: irregularly indexed load was generated for the variable <grid_ptr->s3[x_e+jj*?]>, part of index is nonlinearly computed   [ d2q9-bgk.c(606,49) ]
+         remark #15415: vectorization support: irregularly indexed load was generated for the variable <grid_ptr->s6[x_e+y_s*?]>, part of index is nonlinearly computed   [ d2q9-bgk.c(609,49) ]
+         remark #15415: vectorization support: irregularly indexed load was generated for the variable <grid_ptr->s7[x_e+y_n*?]>, part of index is nonlinearly computed   [ d2q9-bgk.c(610,49) ]
+         remark #15305: vectorization support: vector length 8
+         remark #15309: vectorization support: normalized vectorization overhead 0.352
+         remark #26012: vectorization support: data layout of a private variable u was optimized, converted to SoA
+         remark #26012: vectorization support: data layout of a private variable d_equ was optimized, converted to SoA
+         remark #15355: vectorization support: at (825:9) is float type reduction   [ d2q9-bgk.c(825,9) ]
+         remark #15355: vectorization support: at (827:11) is int type reduction   [ d2q9-bgk.c(827,11) ]
+         remark #15301: SIMD LOOP WAS VECTORIZED
+         remark #15450: unmasked unaligned unit stride loads: 92 
+         remark #15451: unmasked unaligned unit stride stores: 51 
+         remark #15456: masked unaligned unit stride loads: 58 
+         remark #15462: unmasked indexed (or gather) loads: 3 
+         remark #15475: --- begin vector cost summary ---
+         remark #15476: scalar cost: 1136 
+         remark #15477: vector cost: 225.120 
+         remark #15478: estimated potential speedup: 4.740 
+         remark #15482: vectorized math library calls: 1 
+         remark #15486: divides: 4 
+         remark #15488: --- end vector cost summary ---
+
+         LOOP BEGIN at d2q9-bgk.c(764,9)
+         LOOP END
+      LOOP END
+
+      LOOP BEGIN at d2q9-bgk.c(569,9)
+      <Remainder loop for vectorization>
+      LOOP END
+   LOOP END
+LOOP END
+===========================================================================
+
+Begin optimization report for: write_values(const t_param, int *, float *, soa *)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at d2q9-bgk.c(1087,3)
+   remark #15382: vectorization support: call to function fprintf(FILE *__restrict__, const char *__restrict__, ...) cannot be vectorized   [ d2q9-bgk.c(1130,7) ]
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization
+   remark #15346: vector dependence: assumed OUTPUT dependence between call:fprintf(FILE *__restrict__, const char *__restrict__, ...) (1130:7) and call:fprintf(FILE *__restrict__, const char *__restrict__, ...) (1130:7)
+   remark #15346: vector dependence: assumed OUTPUT dependence between call:fprintf(FILE *__restrict__, const char *__restrict__, ...) (1130:7) and call:fprintf(FILE *__restrict__, const char *__restrict__, ...) (1130:7)
+
+   LOOP BEGIN at d2q9-bgk.c(1089,5)
+      remark #15527: loop was not vectorized: function call to fprintf(FILE *__restrict__, const char *__restrict__, ...) cannot be vectorized   [ d2q9-bgk.c(1130,7) ]
+   LOOP END
+LOOP END
+
+LOOP BEGIN at d2q9-bgk.c(1143,3)
+   remark #15527: loop was not vectorized: function call to fprintf(FILE *__restrict__, const char *__restrict__, ...) cannot be vectorized   [ d2q9-bgk.c(1145,5) ]
+LOOP END
+===========================================================================
+
+Begin optimization report for: timestep(const t_param, int *, soa *, soa *)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at d2q9-bgk.c(261,7) inlined into d2q9-bgk.c(232,3)
+   remark #15521: loop was not vectorized: loop control variable was not identified. Explicitly compute the iteration count before executing the loop or try using canonical loop form from OpenMP specification
+
+   LOOP BEGIN at d2q9-bgk.c(247,3) inlined into d2q9-bgk.c(232,3)
+      remark #15344: loop was not vectorized: vector dependence prevents vectorization
+      remark #15346: vector dependence: assumed OUTPUT dependence between grid.s1 (259:7) and grid.s7 (265:7)
+      remark #15346: vector dependence: assumed OUTPUT dependence between grid.s7 (265:7) and grid.s1 (259:7)
+   LOOP END
+LOOP END
+===========================================================================
+
+Begin optimization report for: accelerate_flow(const t_param, int *, soa *)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at d2q9-bgk.c(261,7)
+   remark #15521: loop was not vectorized: loop control variable was not identified. Explicitly compute the iteration count before executing the loop or try using canonical loop form from OpenMP specification
+
+   LOOP BEGIN at d2q9-bgk.c(247,3)
+      remark #15344: loop was not vectorized: vector dependence prevents vectorization
+      remark #15346: vector dependence: assumed OUTPUT dependence between grid.s1 (259:7) and grid.s7 (265:7)
+      remark #15346: vector dependence: assumed OUTPUT dependence between grid.s7 (265:7) and grid.s1 (259:7)
+   LOOP END
+LOOP END
+===========================================================================
+
+Begin optimization report for: propagate(const t_param, t_speed *, t_speed *)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at d2q9-bgk.c(278,5)
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization
+   remark #15346: vector dependence: assumed FLOW dependence between tmp_cells->speeds[ii+jj*params.nx][0] (289:7) and cells->speeds[x_w+y_n*params.nx][8] (297:7)
+   remark #15346: vector dependence: assumed ANTI dependence between cells->speeds[x_w+y_n*params.nx][8] (297:7) and tmp_cells->speeds[ii+jj*params.nx][0] (289:7)
+LOOP END
+
+LOOP BEGIN at d2q9-bgk.c(276,3)
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization
+   remark #15346: vector dependence: assumed FLOW dependence between tmp_cells->speeds[ii+jj*params.nx][0] (289:7) and cells->speeds[x_w+y_n*params.nx][8] (297:7)
+   remark #15346: vector dependence: assumed ANTI dependence between cells->speeds[x_w+y_n*params.nx][8] (297:7) and tmp_cells->speeds[ii+jj*params.nx][0] (289:7)
+
+   LOOP BEGIN at d2q9-bgk.c(278,5)
+      remark #15344: loop was not vectorized: vector dependence prevents vectorization
+      remark #15346: vector dependence: assumed FLOW dependence between tmp_cells->speeds[ii+jj*params.nx][0] (289:7) and cells->speeds[x_w+y_n*params.nx][8] (297:7)
+      remark #15346: vector dependence: assumed ANTI dependence between cells->speeds[x_w+y_n*params.nx][8] (297:7) and tmp_cells->speeds[ii+jj*params.nx][0] (289:7)
+   LOOP END
+LOOP END
+===========================================================================
+
+Begin optimization report for: rebound(const t_param, t_speed *, t_speed *, int *)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at d2q9-bgk.c(307,3)
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization
+   remark #15346: vector dependence: assumed FLOW dependence between cells->speeds[ii+jj*params.nx][1] (316:9) and tmp_cells->speeds[ii+jj*params.nx][6] (323:9)
+   remark #15346: vector dependence: assumed ANTI dependence between tmp_cells->speeds[ii+jj*params.nx][6] (323:9) and cells->speeds[ii+jj*params.nx][1] (316:9)
+
+   LOOP BEGIN at d2q9-bgk.c(309,5)
+      remark #15344: loop was not vectorized: vector dependence prevents vectorization
+      remark #15346: vector dependence: assumed FLOW dependence between cells->speeds[ii+jj*params.nx][1] (316:9) and tmp_cells->speeds[ii+jj*params.nx][6] (323:9)
+      remark #15346: vector dependence: assumed ANTI dependence between tmp_cells->speeds[ii+jj*params.nx][6] (323:9) and cells->speeds[ii+jj*params.nx][1] (316:9)
+   LOOP END
+LOOP END
+===========================================================================
+
+Begin optimization report for: collision(const t_param, t_speed *, t_speed *, int *)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at d2q9-bgk.c(342,3)
+   remark #15542: loop was not vectorized: inner loop was already vectorized
+
+   LOOP BEGIN at d2q9-bgk.c(344,5)
+      remark #15542: loop was not vectorized: inner loop was already vectorized
+
+      LOOP BEGIN at d2q9-bgk.c(352,9)
+         remark #15389: vectorization support: reference tmp_cells->speeds[ii+jj*params.nx][kk] has unaligned access   [ d2q9-bgk.c(354,28) ]
+         remark #15381: vectorization support: unaligned access used inside loop body
+         remark #15305: vectorization support: vector length 4
+         remark #15399: vectorization support: unroll factor set to 2
+         remark #15309: vectorization support: normalized vectorization overhead 1.833
+         remark #15355: vectorization support: local_density is float type reduction   [ d2q9-bgk.c(350,29) ]
+         remark #15300: LOOP WAS VECTORIZED
+         remark #15450: unmasked unaligned unit stride loads: 1 
+         remark #15475: --- begin vector cost summary ---
+         remark #15476: scalar cost: 5 
+         remark #15477: vector cost: 1.500 
+         remark #15478: estimated potential speedup: 1.150 
+         remark #15488: --- end vector cost summary ---
+      LOOP END
+
+      LOOP BEGIN at d2q9-bgk.c(421,9)
+         remark #15344: loop was not vectorized: vector dependence prevents vectorization
+         remark #15346: vector dependence: assumed FLOW dependence between cells->speeds[ii+jj*params.nx][kk] (423:11) and tmp_cells->speeds[ii+jj*params.nx][kk] (423:11)
+         remark #15346: vector dependence: assumed ANTI dependence between tmp_cells->speeds[ii+jj*params.nx][kk] (423:11) and cells->speeds[ii+jj*params.nx][kk] (423:11)
+      LOOP END
+
+      LOOP BEGIN at d2q9-bgk.c(352,9)
+      <Remainder loop for vectorization>
+      LOOP END
+   LOOP END
+LOOP END
+===========================================================================
+
+Begin optimization report for: av_velocity(const t_param, int *, soa *)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at d2q9-bgk.c(444,3)
+   remark #15542: loop was not vectorized: inner loop was already vectorized
+
+   LOOP BEGIN at d2q9-bgk.c(446,5)
+   <Peeled loop for vectorization>
+   LOOP END
+
+   LOOP BEGIN at d2q9-bgk.c(446,5)
+      remark #15389: vectorization support: reference grid.s0[ii+jj*params.nx] has unaligned access   [ d2q9-bgk.c(452,31) ]
+      remark #15389: vectorization support: reference grid.s1[ii+jj*params.nx] has unaligned access   [ d2q9-bgk.c(452,60) ]
+      remark #15389: vectorization support: reference grid.s2[ii+jj*params.nx] has unaligned access   [ d2q9-bgk.c(453,25) ]
+      remark #15389: vectorization support: reference grid.s3[ii+jj*params.nx] has unaligned access   [ d2q9-bgk.c(453,54) ]
+      remark #15389: vectorization support: reference grid.s4[ii+jj*params.nx] has unaligned access   [ d2q9-bgk.c(454,25) ]
+      remark #15389: vectorization support: reference grid.s5[ii+jj*params.nx] has unaligned access   [ d2q9-bgk.c(454,54) ]
+      remark #15389: vectorization support: reference grid.s6[ii+jj*params.nx] has unaligned access   [ d2q9-bgk.c(455,25) ]
+      remark #15389: vectorization support: reference grid.s7[ii+jj*params.nx] has unaligned access   [ d2q9-bgk.c(455,54) ]
+      remark #15389: vectorization support: reference grid.s8[ii+jj*params.nx] has unaligned access   [ d2q9-bgk.c(456,25) ]
+      remark #15389: vectorization support: reference grid.s1[ii+jj*params.nx] has unaligned access   [ d2q9-bgk.c(460,21) ]
+      remark #15389: vectorization support: reference grid.s5[ii+jj*params.nx] has unaligned access   [ d2q9-bgk.c(461,24) ]
+      remark #15389: vectorization support: reference grid.s8[ii+jj*params.nx] has unaligned access   [ d2q9-bgk.c(462,24) ]
+      remark #15389: vectorization support: reference grid.s3[ii+jj*params.nx] has unaligned access   [ d2q9-bgk.c(463,25) ]
+      remark #15389: vectorization support: reference grid.s6[ii+jj*params.nx] has unaligned access   [ d2q9-bgk.c(464,27) ]
+      remark #15389: vectorization support: reference grid.s7[ii+jj*params.nx] has unaligned access   [ d2q9-bgk.c(465,27) ]
+      remark #15389: vectorization support: reference grid.s2[ii+jj*params.nx] has unaligned access   [ d2q9-bgk.c(468,21) ]
+      remark #15389: vectorization support: reference grid.s5[ii+jj*params.nx] has unaligned access   [ d2q9-bgk.c(469,24) ]
+      remark #15389: vectorization support: reference grid.s6[ii+jj*params.nx] has unaligned access   [ d2q9-bgk.c(470,24) ]
+      remark #15389: vectorization support: reference grid.s4[ii+jj*params.nx] has unaligned access   [ d2q9-bgk.c(471,25) ]
+      remark #15389: vectorization support: reference grid.s7[ii+jj*params.nx] has unaligned access   [ d2q9-bgk.c(472,27) ]
+      remark #15389: vectorization support: reference grid.s8[ii+jj*params.nx] has unaligned access   [ d2q9-bgk.c(473,27) ]
+      remark #15381: vectorization support: unaligned access used inside loop body
+      remark #15305: vectorization support: vector length 8
+      remark #15309: vectorization support: normalized vectorization overhead 0.351
+      remark #15355: vectorization support: tot_u is float type reduction   [ d2q9-bgk.c(440,3) ]
+      remark #15355: vectorization support: tot_cells is int type reduction   [ d2q9-bgk.c(436,20) ]
+      remark #15300: LOOP WAS VECTORIZED
+      remark #15442: entire loop may be executed in remainder
+      remark #15450: unmasked unaligned unit stride loads: 1 
+      remark #15456: masked unaligned unit stride loads: 21 
+      remark #15475: --- begin vector cost summary ---
+      remark #15476: scalar cost: 105 
+      remark #15477: vector cost: 26.000 
+      remark #15478: estimated potential speedup: 3.570 
+      remark #15486: divides: 2 
+      remark #15488: --- end vector cost summary ---
+   LOOP END
+
+   LOOP BEGIN at d2q9-bgk.c(446,5)
+   <Remainder loop for vectorization>
+   LOOP END
+LOOP END
+===========================================================================
+
+Begin optimization report for: calc_reynolds(const t_param, int *, soa *)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at d2q9-bgk.c(444,3) inlined into d2q9-bgk.c(1048,10)
+   remark #15542: loop was not vectorized: inner loop was already vectorized
+
+   LOOP BEGIN at d2q9-bgk.c(446,5) inlined into d2q9-bgk.c(1048,10)
+   <Peeled loop for vectorization>
+   LOOP END
+
+   LOOP BEGIN at d2q9-bgk.c(446,5) inlined into d2q9-bgk.c(1048,10)
+      remark #15389: vectorization support: reference grid.s0[ii+jj*params.nx] has unaligned access   [ d2q9-bgk.c(452,31) ]
+      remark #15389: vectorization support: reference grid.s1[ii+jj*params.nx] has unaligned access   [ d2q9-bgk.c(452,60) ]
+      remark #15389: vectorization support: reference grid.s2[ii+jj*params.nx] has unaligned access   [ d2q9-bgk.c(453,25) ]
+      remark #15389: vectorization support: reference grid.s3[ii+jj*params.nx] has unaligned access   [ d2q9-bgk.c(453,54) ]
+      remark #15389: vectorization support: reference grid.s4[ii+jj*params.nx] has unaligned access   [ d2q9-bgk.c(454,25) ]
+      remark #15389: vectorization support: reference grid.s5[ii+jj*params.nx] has unaligned access   [ d2q9-bgk.c(454,54) ]
+      remark #15389: vectorization support: reference grid.s6[ii+jj*params.nx] has unaligned access   [ d2q9-bgk.c(455,25) ]
+      remark #15389: vectorization support: reference grid.s7[ii+jj*params.nx] has unaligned access   [ d2q9-bgk.c(455,54) ]
+      remark #15389: vectorization support: reference grid.s8[ii+jj*params.nx] has unaligned access   [ d2q9-bgk.c(456,25) ]
+      remark #15389: vectorization support: reference grid.s1[ii+jj*params.nx] has unaligned access   [ d2q9-bgk.c(460,21) ]
+      remark #15389: vectorization support: reference grid.s5[ii+jj*params.nx] has unaligned access   [ d2q9-bgk.c(461,24) ]
+      remark #15389: vectorization support: reference grid.s8[ii+jj*params.nx] has unaligned access   [ d2q9-bgk.c(462,24) ]
+      remark #15389: vectorization support: reference grid.s3[ii+jj*params.nx] has unaligned access   [ d2q9-bgk.c(463,25) ]
+      remark #15389: vectorization support: reference grid.s6[ii+jj*params.nx] has unaligned access   [ d2q9-bgk.c(464,27) ]
+      remark #15389: vectorization support: reference grid.s7[ii+jj*params.nx] has unaligned access   [ d2q9-bgk.c(465,27) ]
+      remark #15389: vectorization support: reference grid.s2[ii+jj*params.nx] has unaligned access   [ d2q9-bgk.c(468,21) ]
+      remark #15389: vectorization support: reference grid.s5[ii+jj*params.nx] has unaligned access   [ d2q9-bgk.c(469,24) ]
+      remark #15389: vectorization support: reference grid.s6[ii+jj*params.nx] has unaligned access   [ d2q9-bgk.c(470,24) ]
+      remark #15389: vectorization support: reference grid.s4[ii+jj*params.nx] has unaligned access   [ d2q9-bgk.c(471,25) ]
+      remark #15389: vectorization support: reference grid.s7[ii+jj*params.nx] has unaligned access   [ d2q9-bgk.c(472,27) ]
+      remark #15389: vectorization support: reference grid.s8[ii+jj*params.nx] has unaligned access   [ d2q9-bgk.c(473,27) ]
+      remark #15381: vectorization support: unaligned access used inside loop body
+      remark #15305: vectorization support: vector length 8
+      remark #15309: vectorization support: normalized vectorization overhead 0.351
+      remark #15355: vectorization support: tot_u is float type reduction   [ d2q9-bgk.c(440,3) ]
+      remark #15355: vectorization support: tot_cells is int type reduction   [ d2q9-bgk.c(436,20) ]
+      remark #15300: LOOP WAS VECTORIZED
+      remark #15442: entire loop may be executed in remainder
+      remark #15450: unmasked unaligned unit stride loads: 1 
+      remark #15456: masked unaligned unit stride loads: 21 
+      remark #15475: --- begin vector cost summary ---
+      remark #15476: scalar cost: 105 
+      remark #15477: vector cost: 26.000 
+      remark #15478: estimated potential speedup: 3.570 
+      remark #15486: divides: 2 
+      remark #15488: --- end vector cost summary ---
+   LOOP END
+
+   LOOP BEGIN at d2q9-bgk.c(446,5) inlined into d2q9-bgk.c(1048,10)
+   <Remainder loop for vectorization>
+   LOOP END
+LOOP END
+===========================================================================
+
+Begin optimization report for: total_density(const t_param, t_speed *)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at d2q9-bgk.c(1055,3)
+   remark #15542: loop was not vectorized: inner loop was already vectorized
+
+   LOOP BEGIN at d2q9-bgk.c(1057,5)
+   <Peeled loop for vectorization>
+   LOOP END
+
+   LOOP BEGIN at d2q9-bgk.c(1057,5)
+      remark #15389: vectorization support: reference cells->speeds[ii+jj*params.nx][kk] has unaligned access   [ d2q9-bgk.c(1061,18) ]
+      remark #15381: vectorization support: unaligned access used inside loop body
+      remark #15305: vectorization support: vector length 8
+      remark #15399: vectorization support: unroll factor set to 2
+      remark #15309: vectorization support: normalized vectorization overhead 1.000
+      remark #15355: vectorization support: total is float type reduction   [ d2q9-bgk.c(1053,15) ]
+      remark #15300: LOOP WAS VECTORIZED
+      remark #15450: unmasked unaligned unit stride loads: 1 
+      remark #15475: --- begin vector cost summary ---
+      remark #15476: scalar cost: 5 
+      remark #15477: vector cost: 0.620 
+      remark #15478: estimated potential speedup: 6.000 
+      remark #15488: --- end vector cost summary ---
+   LOOP END
+
+   LOOP BEGIN at d2q9-bgk.c(1057,5)
+   <Remainder loop for vectorization>
+      remark #15389: vectorization support: reference cells->speeds[ii+jj*params.nx][kk] has unaligned access   [ d2q9-bgk.c(1061,18) ]
+      remark #15381: vectorization support: unaligned access used inside loop body
+      remark #15335: remainder loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+      remark #15305: vectorization support: vector length 8
+      remark #15309: vectorization support: normalized vectorization overhead 6.333
+      remark #15355: vectorization support: total is float type reduction   [ d2q9-bgk.c(1053,15) ]
+      remark #15450: unmasked unaligned unit stride loads: 1 
+      remark #15475: --- begin vector cost summary ---
+      remark #15476: scalar cost: 5 
+      remark #15477: vector cost: 0.620 
+      remark #15478: estimated potential speedup: 6.000 
+      remark #15488: --- end vector cost summary ---
+   LOOP END
+LOOP END
+===========================================================================
+
+Begin optimization report for: initialise(const char *, const char *, t_param *, int **, float **, soa *, soa *)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at d2q9-bgk.c(977,3)
+   remark #15542: loop was not vectorized: inner loop was already vectorized
+
+   LOOP BEGIN at d2q9-bgk.c(979,5)
+      remark #15542: loop was not vectorized: inner loop was already vectorized
+
+      LOOP BEGIN at d2q9-bgk.c(979,5)
+         remark #15389: vectorization support: reference obstacles_ptr has unaligned access   [ d2q9-bgk.c(981,9) ]
+         remark #15381: vectorization support: unaligned access used inside loop body
+         remark #15305: vectorization support: vector length 8
+         remark #15309: vectorization support: normalized vectorization overhead 0.600
+         remark #15300: LOOP WAS VECTORIZED
+         remark #15451: unmasked unaligned unit stride stores: 1 
+         remark #15475: --- begin vector cost summary ---
+         remark #15476: scalar cost: 3 
+         remark #15477: vector cost: 0.620 
+         remark #15478: estimated potential speedup: 4.000 
+         remark #15488: --- end vector cost summary ---
+      LOOP END
+
+      LOOP BEGIN at d2q9-bgk.c(979,5)
+      <Remainder loop for vectorization>
+      LOOP END
+   LOOP END
+LOOP END
+
+LOOP BEGIN at d2q9-bgk.c(995,3)
+   remark #15521: loop was not vectorized: loop control variable was not identified. Explicitly compute the iteration count before executing the loop or try using canonical loop form from OpenMP specification
+LOOP END
+
+LOOP BEGIN at d2q9-bgk.c(945,3)
+   remark #15521: loop was not vectorized: loop control variable was not identified. Explicitly compute the iteration count before executing the loop or try using canonical loop form from OpenMP specification
+
+   LOOP BEGIN at d2q9-bgk.c(945,3)
+      remark #15344: loop was not vectorized: vector dependence prevents vectorization
+      remark #15346: vector dependence: assumed OUTPUT dependence between grid_ptr->s0[ii+jj*params->nx] (951:9) and grid_ptr->s8[ii+jj*params->nx] (961:9)
+      remark #15346: vector dependence: assumed OUTPUT dependence between grid_ptr->s8[ii+jj*params->nx] (961:9) and grid_ptr->s0[ii+jj*params->nx] (951:9)
+   LOOP END
+LOOP END
+===========================================================================
