@@ -554,7 +554,7 @@ float fusion(const t_param params,  int* restrict  obstacles,soa* restrict grid_
   /* initialise */
   tot_u = 0.f;
 
-	//Comment asdas
+	
   /* loop over _all_ cells */
   //
     // for(int n=0; n<params.ny*params.nx; n++) {
